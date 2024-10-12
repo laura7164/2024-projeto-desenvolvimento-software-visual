@@ -1,2 +1,17 @@
 ### testar a raiz do projeto
-GET http://localhost:5177
+GET http://localhost:5094
+
+### listar todos os pokemons
+GET http://localhost:5094/api/pokemons/listar
+
+### cadastrar pokemon
+POST http://localhost:5094/api/pokemons/cadastrar
+Content-Type: application/json
+
+{
+    "nome": "Eevee",
+    "tipos": ["Normal"],
+    "descricao": "A genética instável de eevee permite que evolua com o ambiente em que vive, ela é forte contra pokémons do tipo fantasma e fraca contra pokémons do tipo lutador.",
+    "evoluiPara": ["Vaporeon", "Flareon", "Jolteon", "Sylveon", "Umbreon", "Espeon", "Leafeon", "Glaceon"],
+    "preEvolucoes": [""]
+}

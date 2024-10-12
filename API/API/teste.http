@@ -4,12 +4,30 @@ GET http://localhost:5094
 ### listar todos os pokemons
 GET http://localhost:5094/api/pokemons/listar
 
+### buscar um pokemon pelo nome
+GET http://localhost:5094/api/pokemons/buscar/Eevee
+
+### deletar um pokemon pelo nome
+DELETE http://localhost:5094/api/pokemons/deletar/Eevee2
+
 ### cadastrar pokemon
 POST http://localhost:5094/api/pokemons/cadastrar
 Content-Type: application/json
 
 {
     "nome": "Eevee",
+    "tipos": ["Normal"],
+    "descricao": "A genética instável de eevee permite que evolua com o ambiente em que vive, ela é forte contra pokémons do tipo fantasma e fraca contra pokémons do tipo lutador.",
+    "evoluiPara": ["Vaporeon", "Flareon", "Jolteon", "Sylveon", "Umbreon", "Espeon", "Leafeon", "Glaceon"],
+    "preEvolucoes": [""]
+}
+
+### alterar uma informação do pokemon
+PUT http://localhost:5094/api/pokemons/alterar/Eevee
+Content-Type: application/json
+
+{
+    "nome": "Eevee2",
     "tipos": ["Normal"],
     "descricao": "A genética instável de eevee permite que evolua com o ambiente em que vive, ela é forte contra pokémons do tipo fantasma e fraca contra pokémons do tipo lutador.",
     "evoluiPara": ["Vaporeon", "Flareon", "Jolteon", "Sylveon", "Umbreon", "Espeon", "Leafeon", "Glaceon"],

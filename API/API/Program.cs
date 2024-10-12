@@ -21,4 +21,40 @@ app.MapGet("/api/pokemons/listar", ([FromServices] AppDataContext ctx) => {
     return Results.NotFound();
 });
 
+app.MapGet("/api/pokemons/buscar/{nome}", ([FromRoute] string nome, [FromServices] AppDataContext ctx) => {
+    Pokemon? pokemon = ctx.Pokemons.FirstOrDefault(p => p.Nome == nome);
+    if (pokemon is null) {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(pokemon);
+});
+
+app.MapDelete("/api/pokemons/deletar/{nome}", ([FromRoute] string nome, [FromServices] AppDataContext ctx) => {
+    Pokemon? pokemon = ctx.Pokemons.FirstOrDefault(p => p.Nome == nome);
+    if (pokemon is null) {
+        return Results.NotFound();
+    }
+
+    ctx.Pokemons.Remove(pokemon);
+    ctx.SaveChanges();
+    return Results.Ok(pokemon);
+});
+
+app.MapPut("/api/pokemons/alterar/{nome}", ([FromRoute] string nome, [FromBody] Pokemon pokemonAlterado, [FromServices] AppDataContext ctx) => {
+    Pokemon? pokemon = ctx.Pokemons.FirstOrDefault(p => p.Nome == nome);
+    if (pokemon is null) {
+        return Results.NotFound();
+    }
+
+    pokemon.Nome = pokemonAlterado.Nome;
+    pokemon.Tipos = pokemonAlterado.Tipos;
+    pokemon.Descricao = pokemonAlterado.Descricao;
+    pokemon.EvoluiPara = pokemonAlterado.EvoluiPara;
+    pokemon.PreEvolucoes = pokemonAlterado.PreEvolucoes;
+    ctx.Pokemons.Update(pokemon);
+    ctx.SaveChanges();
+    return Results.Ok(pokemon);
+});
+
 app.Run();

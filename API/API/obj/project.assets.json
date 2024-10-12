@@ -2381,19 +2381,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\linad\\.nuget\\packages\\": {}
+    "C:\\Users\\laura\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\linad\\Documents\\projeto\\API\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\laura\\OneDrive\\Documents\\projeto\\API\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\linad\\Documents\\projeto\\API\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\linad\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\linad\\Documents\\projeto\\API\\API\\obj\\",
+      "projectPath": "C:\\Users\\laura\\OneDrive\\Documents\\projeto\\API\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\laura\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\laura\\OneDrive\\Documents\\projeto\\API\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\linad\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\laura\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"

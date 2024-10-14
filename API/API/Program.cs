@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDataContext>();
+builder.Services.AddDbContext<BatalhaDataContext>();
 var app = builder.Build();
 
 app.MapGet("/", () => "API de pokedex");

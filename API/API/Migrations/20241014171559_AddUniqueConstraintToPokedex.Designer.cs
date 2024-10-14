@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20241011001413_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241014171559_AddUniqueConstraintToPokedex")]
+    partial class AddUniqueConstraintToPokedex
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace API.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
 
-            modelBuilder.Entity("API.Models.Pokemon", b =>
+            modelBuilder.Entity("API.Models.Pokedex", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -48,7 +48,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pokemons");
+                    b.ToTable("Pokedex");
                 });
 #pragma warning restore 612, 618
         }

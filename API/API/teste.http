@@ -2,16 +2,16 @@
 GET http://localhost:5094
 
 ### listar todos os pokemons
-GET http://localhost:5094/api/pokemons/listar
+GET http://localhost:5094/api/pokedex/listar
 
 ### buscar um pokemon pelo nome
-GET http://localhost:5094/api/pokemons/buscar/Eevee
+GET http://localhost:5094/api/pokedex/buscar/Eeve
 
 ### deletar um pokemon pelo nome
-DELETE http://localhost:5094/api/pokemons/deletar/Eevee2
+DELETE http://localhost:5094/api/pokedex/deletar/Eevee
 
 ### cadastrar pokemon
-POST http://localhost:5094/api/pokemons/cadastrar
+POST http://localhost:5094/api/pokedex/cadastrar
 Content-Type: application/json
 
 {
@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 ### alterar uma informação do pokemon
-PUT http://localhost:5094/api/pokemons/alterar/Eevee
+PUT http://localhost:5094/api/pokedex/alterar/Eevee
 Content-Type: application/json
 
 {
@@ -33,3 +33,4 @@ Content-Type: application/json
     "evoluiPara": ["Vaporeon", "Flareon", "Jolteon", "Sylveon", "Umbreon", "Espeon", "Leafeon", "Glaceon"],
     "preEvolucoes": [""]
 }
+

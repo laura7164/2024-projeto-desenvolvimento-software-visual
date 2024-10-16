@@ -1,36 +1,36 @@
 ### testar a raiz do projeto
-GET http://localhost:5094
+http://localhost:5244
+
+// CRUD da classe PokemonWiki
+### cadastrar pokemon
+POST http://localhost:5244/api/pokemon_wiki/cadastrar
+Content-Type: application/json
+
+{
+    "nome": "Charizard",
+    "tipos": ["Fogo", "Voador"],
+    "descricao": "Charizard é forte contra Pokémon de planta e inseto, mas fraco contra Pokémon de água.",
+    "evoluiPara": [],
+    "preEvolucoes": ["Charmander", "Charmeleon"]
+}
 
 ### listar todos os pokemons
-GET http://localhost:5094/api/pokedex/listar
+GET http://localhost:5244/api/pokemon_wiki/listar
 
 ### buscar um pokemon pelo nome
-GET http://localhost:5094/api/pokedex/buscar/Eeve
+GET http://localhost:5244/api/pokemon_wiki/buscar/Charizard
 
 ### deletar um pokemon pelo nome
-DELETE http://localhost:5094/api/pokedex/deletar/Eevee
-
-### cadastrar pokemon
-POST http://localhost:5094/api/pokedex/cadastrar
-Content-Type: application/json
-
-{
-    "nome": "Eevee",
-    "tipos": ["Normal"],
-    "descricao": "A genética instável de eevee permite que evolua com o ambiente em que vive, ela é forte contra pokémons do tipo fantasma e fraca contra pokémons do tipo lutador.",
-    "evoluiPara": ["Vaporeon", "Flareon", "Jolteon", "Sylveon", "Umbreon", "Espeon", "Leafeon", "Glaceon"],
-    "preEvolucoes": [""]
-}
+DELETE http://localhost:5244/api/pokemon_wiki/deletar/Eevee
 
 ### alterar uma informação do pokemon
-PUT http://localhost:5094/api/pokedex/alterar/Eevee
+PUT http://localhost:5244/api/pokemon_wiki/alterar/Charizard
 Content-Type: application/json
 
 {
-    "nome": "Eevee2",
+    "nome": "Charizard2",
     "tipos": ["Normal"],
     "descricao": "A genética instável de eevee permite que evolua com o ambiente em que vive, ela é forte contra pokémons do tipo fantasma e fraca contra pokémons do tipo lutador.",
     "evoluiPara": ["Vaporeon", "Flareon", "Jolteon", "Sylveon", "Umbreon", "Espeon", "Leafeon", "Glaceon"],
-    "preEvolucoes": [""]
+    "preEvolucoes": []
 }
-

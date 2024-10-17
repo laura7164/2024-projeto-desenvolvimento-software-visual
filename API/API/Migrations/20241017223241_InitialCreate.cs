@@ -83,6 +83,12 @@ namespace API.Migrations
                 name: "IX_Batalhas_Pokemon2Id",
                 table: "Batalhas",
                 column: "Pokemon2Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PokemonsWiki_Nome",
+                table: "PokemonsWiki",
+                column: "Nome",
+                unique: true);
         }
 
         /// <inheritdoc />

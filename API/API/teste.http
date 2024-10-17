@@ -23,7 +23,7 @@ GET http://localhost:5244/api/pokemon_wiki/buscar/Charizard
 ### deletar um pokemon pelo nome
 DELETE http://localhost:5244/api/pokemon_wiki/deletar/Eevee
 
-### alterar uma informação do pokemon
+### alterar informações do pokemon
 PUT http://localhost:5244/api/pokemon_wiki/alterar/Charizard
 Content-Type: application/json
 
@@ -34,3 +34,53 @@ Content-Type: application/json
     "evoluiPara": ["Vaporeon", "Flareon", "Jolteon", "Sylveon", "Umbreon", "Espeon", "Leafeon", "Glaceon"],
     "preEvolucoes": []
 }
+
+// CRUD da classe SeusPokemons
+### cadastrar pokemon
+POST http://localhost:5244/api/seu_pokemon/cadastrar
+Content-Type: application/json
+
+{
+    "nome": "Sylveon",
+    "tipos": ["Fada"],
+    "pc": 1700
+}
+
+### listar todos os pokemons
+GET http://localhost:5244/api/seu_pokemon/listar
+
+### buscar um pokemon pelo id
+GET http://localhost:5244/api/seu_pokemon/buscar/2
+
+### deletar um pokemon pelo id
+DELETE http://localhost:5244/api/seu_pokemon/deletar/4
+
+### alterar informações do pokemon
+PUT http://localhost:5244/api/seu_pokemon/alterar/3
+Content-Type: application/json
+
+{
+    "nome": "llll",
+    "tipos": ["Fada"],
+    "pc": 1700
+}
+
+// CRUD da classe Batalha (sem alterar)
+### cadastrar uma batalha
+POST http://localhost:5244/api/batalha/cadastrar/3/5
+Content-Type: application/json
+
+{
+    "titulo": "teste"
+}
+
+### listar todas as batalhas
+GET http://localhost:5244/api/batalha/listar
+
+### buscar uma batalha pelo id
+GET http://localhost:5244/api/batalha/buscar/4
+
+### deletar uma batalha pelo id
+DELETE http://localhost:5244/api/batalha/deletar/4
+
+

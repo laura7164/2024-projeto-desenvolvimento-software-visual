@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20241016175914_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241017223440_AddUniqueIndexToPokemonWikiName")]
+    partial class AddUniqueIndexToPokemonWikiName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,6 +78,9 @@ namespace API.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("PokemonWikiId");
+
+                    b.HasIndex("Nome")
+                        .IsUnique();
 
                     b.ToTable("PokemonsWiki");
                 });

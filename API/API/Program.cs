@@ -4,6 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDataContext>();
+
+builder.Services.AddCors(options =>
+    options.AddPolicy("Acesso Total",
+        configs => configs
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod())
+);
+
 var app = builder.Build();
 
 app.MapGet("/", () => "API de Pokemon");
@@ -13,7 +22,8 @@ app.MapPost("/api/pokemon_wiki/cadastrar", ([FromBody] PokemonWiki pokemon, [Fro
 {
     var pokemonExistente = ctx.PokemonsWiki.FirstOrDefault(p => p.Nome == pokemon.Nome);
 
-    if (pokemonExistente != null) {
+    if (pokemonExistente != null)
+    {
         return Results.BadRequest("Já existe um Pokémon com esse nome.");
     }
 
@@ -26,7 +36,8 @@ app.MapPost("/api/pokemon_wiki/cadastrar", ([FromBody] PokemonWiki pokemon, [Fro
 app.MapGet("/api/pokemon_wiki/listar", ([FromServices] AppDataContext ctx) =>
 {
 
-    if (ctx.PokemonsWiki.Any()) {
+    if (ctx.PokemonsWiki.Any())
+    {
         return Results.Ok(ctx.PokemonsWiki.ToList());
     }
 
@@ -37,7 +48,8 @@ app.MapGet("/api/pokemon_wiki/buscar/{nome}", ([FromRoute] string nome, [FromSer
 {
     PokemonWiki? pokemon = ctx.PokemonsWiki.FirstOrDefault(p => p.Nome == nome);
 
-    if (pokemon is null) {
+    if (pokemon is null)
+    {
         return Results.NotFound();
     }
 
@@ -48,7 +60,8 @@ app.MapDelete("/api/pokemon_wiki/deletar/{nome}", ([FromRoute] string nome, [Fro
 {
     PokemonWiki? pokemon = ctx.PokemonsWiki.FirstOrDefault(p => p.Nome == nome);
 
-    if (pokemon is null) {
+    if (pokemon is null)
+    {
         return Results.NotFound();
     }
 
@@ -62,7 +75,8 @@ app.MapPut("/api/pokemon_wiki/alterar/{nome}", ([FromRoute] string nome, [FromBo
 {
     PokemonWiki? pokemon = ctx.PokemonsWiki.FirstOrDefault(p => p.Nome == nome);
 
-    if (pokemon is null) {
+    if (pokemon is null)
+    {
         return Results.NotFound();
     }
 
@@ -90,7 +104,8 @@ app.MapPost("/api/seu_pokemon/cadastrar", ([FromBody] SeusPokemons seuPokemon, [
 app.MapGet("/api/seu_pokemon/listar", ([FromServices] AppDataContext ctx) =>
 {
 
-    if (ctx.SeusPokemons.Any()) {
+    if (ctx.SeusPokemons.Any())
+    {
         return Results.Ok(ctx.SeusPokemons.ToList());
     }
 
@@ -101,7 +116,8 @@ app.MapGet("/api/seu_pokemon/buscar/{id}", ([FromRoute] int id, [FromServices] A
 {
     SeusPokemons? seuPokemon = ctx.SeusPokemons.Find(id);
 
-    if (seuPokemon == null) {
+    if (seuPokemon == null)
+    {
         return Results.NotFound();
     }
 
@@ -112,7 +128,8 @@ app.MapDelete("/api/seu_pokemon/deletar/{id}", ([FromRoute] int id, [FromService
 {
     SeusPokemons? seuPokemon = ctx.SeusPokemons.Find(id);
 
-    if (seuPokemon == null) {
+    if (seuPokemon == null)
+    {
         return Results.NotFound();
     }
 
@@ -126,7 +143,8 @@ app.MapPut("/api/seu_pokemon/alterar/{id}", ([FromRoute] int id, [FromBody] Seus
 {
     SeusPokemons? pokemon = ctx.SeusPokemons.Find(id);
 
-    if (pokemon == null) {
+    if (pokemon == null)
+    {
         return Results.NotFound();
     }
 
@@ -146,7 +164,8 @@ app.MapPost("/api/batalha/cadastrar/{pokemonId1}/{pokemonId2}", ([FromRoute] int
     SeusPokemons? pokemon1 = ctx.SeusPokemons.Find(pokemonId1);
     SeusPokemons? pokemon2 = ctx.SeusPokemons.Find(pokemonId2);
 
-    if (pokemon1 == null || pokemon2 == null) {
+    if (pokemon1 == null || pokemon2 == null)
+    {
         return Results.BadRequest("Um ou ambos os IDs dos Pokémons não existem no banco de dados.");
     }
 
@@ -166,7 +185,8 @@ app.MapPost("/api/batalha/cadastrar/{pokemonId1}/{pokemonId2}", ([FromRoute] int
 
 app.MapGet("/api/batalha/listar", ([FromServices] AppDataContext ctx) =>
 {
-    if (ctx.Batalhas.Any()) {
+    if (ctx.Batalhas.Any())
+    {
         var batalhas = ctx.Batalhas.Include(b => b.Pokemon1).Include(b => b.Pokemon2).ToList();
 
         return Results.Ok(batalhas);
@@ -180,7 +200,8 @@ app.MapGet("/api/batalha/buscar/{id}", ([FromRoute] int id, [FromServices] AppDa
 {
     var batalha = ctx.Batalhas.Include(b => b.Pokemon1).Include(b => b.Pokemon2).FirstOrDefault(b => b.BatalhaId == id);
 
-    if (batalha == null) {
+    if (batalha == null)
+    {
         return Results.NotFound();
     }
 
@@ -191,7 +212,8 @@ app.MapDelete("/api/batalha/deletar/{id}", ([FromRoute] int id, [FromServices] A
 {
     var batalha = ctx.Batalhas.Include(b => b.Pokemon1).Include(b => b.Pokemon2).FirstOrDefault(b => b.BatalhaId == id);
 
-    if (batalha == null) {
+    if (batalha == null)
+    {
         return Results.NotFound();
     }
 
@@ -200,5 +222,7 @@ app.MapDelete("/api/batalha/deletar/{id}", ([FromRoute] int id, [FromServices] A
 
     return Results.Ok(batalha);
 });
+
+app.UseCors("Acesso Total");
 
 app.Run();

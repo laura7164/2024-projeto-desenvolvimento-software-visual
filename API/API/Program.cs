@@ -46,7 +46,7 @@ app.MapGet("/api/pokemon_wiki/listar", ([FromServices] AppDataContext ctx) =>
 
 app.MapGet("/api/pokemon_wiki/buscar/{nome}", ([FromRoute] string nome, [FromServices] AppDataContext ctx) =>
 {
-    PokemonWiki? pokemon = ctx.PokemonsWiki.FirstOrDefault(p => p.Nome == nome);
+    PokemonWiki? pokemon = ctx.PokemonsWiki.FirstOrDefault(p => p.Nome.ToLower() == nome.ToLower());
 
     if (pokemon is null)
     {

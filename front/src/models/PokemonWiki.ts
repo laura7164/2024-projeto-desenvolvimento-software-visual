@@ -1,5 +1,4 @@
 export interface PokemonWiki {
-    //alterar para list
     pokemonWikiId?: string;
     nome: string;
     descricao: string;

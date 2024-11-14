@@ -5,8 +5,8 @@ function CadastroPokemonWiki() {
     const [nome, setNome] = useState<string>('');
     const [descricao, setDescricao] = useState<string>('');
     const [tipos, setTipos] = useState<string[]>([]);
-    const [preEvolucoes, setpreEvolucoes] = useState<string[]>([]);
-    const [evoluirPara, setevoluirPara] = useState<string[]>([]);
+    const [preEvolucoes, setPreEvolucoes] = useState<string[]>([]);
+    const [evoluiPara, setEvoluiPara] = useState<string[]>([]);
 
     function handleSubmit(e: any) {
         e.preventDefault();
@@ -16,7 +16,7 @@ function CadastroPokemonWiki() {
             descricao,
             tipos,
             preEvolucoes,
-            evoluirPara
+            evoluiPara
         };
 
         fetch('http://localhost:5244/api/pokemon_wiki/cadastrar', {
@@ -36,8 +36,8 @@ function CadastroPokemonWiki() {
                 setNome('');
                 setDescricao('');
                 setTipos([]);
-                setpreEvolucoes([]);
-                setevoluirPara([]);
+                setPreEvolucoes([]);
+                setEvoluiPara([]);
             })
             .catch(error => {
                 console.error('Erro:', error);
@@ -62,11 +62,11 @@ function CadastroPokemonWiki() {
                 </label>
                 <label>
                     PreEvolucoes:
-                    <input type="string" value={preEvolucoes} onChange={e => setpreEvolucoes(Array(e.target.value))} required />
+                    <input type="string" value={preEvolucoes} onChange={e => setPreEvolucoes(Array(e.target.value))} required />
                 </label>
                 <label>
                     EvoluirPara:
-                    <input type="string" value={evoluirPara} onChange={e => setevoluirPara(Array(e.target.value))} required />
+                    <input type="string" value={evoluiPara} onChange={e => setEvoluiPara(Array(e.target.value))} required />
                 </label>
                 <button type="submit">Cadastrar</button>
             </form>

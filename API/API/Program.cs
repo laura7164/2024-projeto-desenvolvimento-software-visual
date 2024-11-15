@@ -148,15 +148,28 @@ app.MapPut("/api/seu_pokemon/alterar/{id}", ([FromRoute] int id, [FromBody] Seus
         return Results.NotFound();
     }
 
-    pokemon.Nome = pokemonAlterado.Nome;
-    pokemon.Tipos = pokemonAlterado.Tipos;
-    pokemon.PC = pokemonAlterado.PC;
+    // Atualiza somente os campos não nulos
+    if (!string.IsNullOrWhiteSpace(pokemonAlterado.Nome))
+    {
+        pokemon.Nome = pokemonAlterado.Nome;
+    }
+
+    if (pokemonAlterado.Tipos != null && pokemonAlterado.Tipos.Any())
+    {
+        pokemon.Tipos = pokemonAlterado.Tipos;
+    }
+
+    if (pokemonAlterado.PC > 0)
+    {
+        pokemon.PC = pokemonAlterado.PC;
+    }
 
     ctx.SeusPokemons.Update(pokemon);
     ctx.SaveChanges();
 
     return Results.Ok(pokemon);
 });
+
 
 // CRUD da classe batalha (sem alterar)
 app.MapPost("/api/batalha/cadastrar/{pokemonId1}/{pokemonId2}", ([FromRoute] int pokemonId1, [FromRoute] int pokemonId2, Batalha batalha, AppDataContext ctx) =>

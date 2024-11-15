@@ -20,7 +20,7 @@ function AlterarSeuPokemon() {
     }
 
     function digitarTipo(e: React.ChangeEvent<HTMLInputElement>) {
-        setTipo(e.target.value);
+        setTipo(e.target.value); // Trata como uma string separada por vírgulas
     }
 
     function buscarPokemon() {
@@ -35,8 +35,8 @@ function AlterarSeuPokemon() {
             .then(pokemon => {
                 setNome(pokemon.nome || '');
                 setPc(pokemon.pc || '');
-                setTipo(pokemon.tipo || '');
-                setBuscaConcluida(true); 
+                setTipo((pokemon.tipos || []).join(', ')); // Converte a lista de tipos para uma string separada por vírgulas
+                setBuscaConcluida(true);
             })
             .catch(error => {
                 console.error("Erro ao buscar Pokémon:", error);
@@ -47,9 +47,9 @@ function AlterarSeuPokemon() {
 
     function alterarPokemon() {
         const pokemonAlterado = {
-            nome,   
-            pc,     
-            tipo    
+            nome,
+            pc,
+            tipos: tipo.split(',').map(t => t.trim()), // Converte de volta para uma lista antes de enviar à API
         };
 
         fetch(`http://localhost:5244/api/seu_pokemon/alterar/${id}`, {
@@ -59,20 +59,20 @@ function AlterarSeuPokemon() {
             },
             body: JSON.stringify(pokemonAlterado)
         })
-        .then(resposta => {
-            if (resposta.ok) {
-                return resposta.json();
-            } else {
-                throw new Error("Erro ao atualizar Pokémon.");
-            }
-        })
-        .then(pokemonAtualizado => {
-            alert("Pokémon atualizado com sucesso!");
-            setNome(pokemonAtualizado.nome);
-            setPc(pokemonAtualizado.pc);
-            setTipo(pokemonAtualizado.tipo);
-        })
-        .catch(error => console.error("Erro ao atualizar Pokémon:", error));
+            .then(resposta => {
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw new Error("Erro ao atualizar Pokémon.");
+                }
+            })
+            .then(pokemonAtualizado => {
+                alert("Pokémon atualizado com sucesso!");
+                setNome(pokemonAtualizado.nome);
+                setPc(pokemonAtualizado.pc);
+                setTipo((pokemonAtualizado.tipos || []).join(', ')); // Atualiza o estado local
+            })
+            .catch(error => console.error("Erro ao atualizar Pokémon:", error));
     }
 
     return (
@@ -103,7 +103,7 @@ function AlterarSeuPokemon() {
                         onChange={digitarPc} 
                     />
 
-                    <label>Tipo:</label>
+                    <label>Tipos (separados por vírgula):</label>
                     <input 
                         type="text" 
                         value={tipo}

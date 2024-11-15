@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import { PokemonWiki } from '../../../models/PokemonWiki';
+import { SeusPokemons } from '../../../models/SeusPokemons';
 
-function CadastrarPokemonWiki() {
+function CadastrarSeuPokemon() {
+    const [id, setId] = useState<number>();
     const [nome, setNome] = useState<string>('');
-    const [descricao, setDescricao] = useState<string>('');
+    const [pc, setPc] = useState<number>();
     const [tipos, setTipos] = useState<string[]>([]);
-    const [preEvolucoes, setPreEvolucoes] = useState<string[]>([]);
-    const [evoluiPara, setEvoluiPara] = useState<string[]>([]);
 
     function handleSubmit(e: any) {
         e.preventDefault();
 
-        const novoPokemon = {
+        const novoPokemon= {
+            id,
             nome,
-            descricao,
-            tipos,
-            preEvolucoes,
-            evoluiPara
+            pc,
+            tipos
         };
 
-        fetch('http://localhost:5244/api/pokemon_wiki/cadastrar', {
+        fetch('http://localhost:5244/api/seu_pokemon/cadastrar', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,11 +31,10 @@ function CadastrarPokemonWiki() {
                 return response.json();
             })
             .then(data => {
+                setId(0);
                 setNome('');
-                setDescricao('');
+                setPc(0);
                 setTipos([]);
-                setPreEvolucoes([]);
-                setEvoluiPara([]);
             })
             .catch(error => {
                 console.error('Erro:', error);
@@ -46,27 +43,19 @@ function CadastrarPokemonWiki() {
 
     return (
         <div>
-            <h2>Cadastrar novo pokemon na Pokedex</h2>
+            <h2>Cadastrar seu novo pokemon</h2>
             <form onSubmit={handleSubmit}>
                 <label>
                     Nome:
                     <input type="text" value={nome} onChange={e => setNome(e.target.value)} required />
                 </label>
                 <label>
-                    Descrição:
-                    <input type="text" value={descricao} onChange={e => setDescricao(e.target.value)} required />
+                    Pc:
+                    <input type="number" value={pc || ''} onChange={e => setPc(Number(e.target.value))} required />
                 </label>
                 <label>
                     Tipos:
                     <input type="string" value={tipos} onChange={e => setTipos(Array(e.target.value))} required />
-                </label>
-                <label>
-                    PreEvolucoes:
-                    <input type="string" value={preEvolucoes} onChange={e => setPreEvolucoes(Array(e.target.value))} required />
-                </label>
-                <label>
-                    EvoluirPara:
-                    <input type="string" value={evoluiPara} onChange={e => setEvoluiPara(Array(e.target.value))} required />
                 </label>
                 <button type="submit">Cadastrar</button>
             </form>
@@ -74,4 +63,4 @@ function CadastrarPokemonWiki() {
     );
 
 }
-export default CadastrarPokemonWiki;
+export default CadastrarSeuPokemon;

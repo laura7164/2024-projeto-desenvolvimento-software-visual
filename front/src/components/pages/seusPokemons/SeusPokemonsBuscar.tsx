@@ -1,20 +1,19 @@
 import { useState } from "react";
 
-function BuscarPokemonWiki() {   
+function BuscarSeuPokemon() {   
+    const [id, setId] = useState<string>('');
     const [nome, setNome] = useState<string>('');
-    const [descricao, setDescricao] = useState<string>('');
+    const [pc, setPc] = useState<number | null>(null);
     const [tipos, setTipos] = useState<string[]>([]);
-    const [preEvolucoes, setPreEvolucoes] = useState<string[]>([]);
-    const [evoluiPara, setEvoluiPara] = useState<string[]>([]); 
 
     function digitar(e: React.ChangeEvent<HTMLInputElement>) {
-        setNome(e.target.value);
+        setId(e.target.value);
     }
 
     function sairCaixaTexto() {
-        console.log("Nome do Pokémon buscado:", nome);  
+        console.log("ID do Pokémon buscado:", id);
 
-        fetch(`http://localhost:5244/api/pokemon_wiki/buscar/${nome}`)
+        fetch(`http://localhost:5244/api/seu_pokemon/buscar/${id}`)
             .then(resposta => {
                 console.log("Resposta da API:", resposta); 
                 return resposta.json();
@@ -24,16 +23,13 @@ function BuscarPokemonWiki() {
 
                 if (pokemon && pokemon.nome) {  
                     setNome(pokemon.nome || '');
-                    setDescricao(pokemon.descricao || '');
+                    setPc(pokemon.pc || null);
                     setTipos(pokemon.tipos || []);
-                    setPreEvolucoes(pokemon.preEvolucoes || []);
-                    setEvoluiPara(pokemon.evoluiPara || []);
                 } else {
                     alert("Pokémon não encontrado!");
-                    setDescricao('');
+                    setNome('');
+                    setPc(null);
                     setTipos([]);
-                    setPreEvolucoes([]);
-                    setEvoluiPara([]);
                 }
             })
             .catch(error => console.error("Erro ao buscar Pokémon:", error));
@@ -41,11 +37,11 @@ function BuscarPokemonWiki() {
 
     return (
         <div>
-            <h1>Buscar Pokémon</h1>
+            <h1>Buscar seu Pokémon</h1>
 
             <input 
                 type="text" 
-                placeholder="Digite o nome do Pokémon"
+                placeholder="Digite o ID do Pokémon"
                 onChange={digitar}
                 onBlur={sairCaixaTexto}
             />
@@ -53,12 +49,10 @@ function BuscarPokemonWiki() {
             <button onClick={sairCaixaTexto}>Buscar</button>
 
             <p><strong>Nome:</strong> {nome}</p>
-            <p><strong>Descrição:</strong> {descricao}</p>
+            <p><strong>PC:</strong> {pc}</p>
             <p><strong>Tipos:</strong> {tipos?.join(', ')}</p>
-            <p><strong>Pré-evoluções:</strong> {preEvolucoes?.join(', ')}</p>
-            <p><strong>Evolui para:</strong> {evoluiPara?.join(', ')}</p>
         </div>
     );
 }
 
-export default BuscarPokemonWiki;
+export default BuscarSeuPokemon;

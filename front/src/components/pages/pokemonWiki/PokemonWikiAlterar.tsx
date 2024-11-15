@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function AlterarPokemonWiki() {
     const [nome, setNome] = useState<string>('');
-    const [nomeAlterado, setNomeAlterado] = useState<string>(''); // Estado para nome alterado
+    const [nomeAlterado, setNomeAlterado] = useState<string>('');
     const [descricao, setDescricao] = useState<string>('');
     const [tipos, setTipos] = useState<string[]>([]);
     const [preEvolucoes, setPreEvolucoes] = useState<string[]>([]);
@@ -27,12 +27,12 @@ function AlterarPokemonWiki() {
                 }
             })
             .then(pokemon => {
-                setNomeAlterado(pokemon.nome); // Preencher com o nome original, caso queira alterar
+                setNomeAlterado(pokemon.nome);
                 setDescricao(pokemon.descricao || '');
                 setTipos(pokemon.tipos || []);
                 setPreEvolucoes(pokemon.preEvolucoes || []);
                 setEvoluiPara(pokemon.evoluiPara || []);
-                setBuscaConcluida(true); // Confirma que a busca foi concluída com sucesso
+                setBuscaConcluida(true);
             })
             .catch(error => {
                 console.error("Erro ao buscar Pokémon:", error);
@@ -43,7 +43,7 @@ function AlterarPokemonWiki() {
 
     function alterarPokemon() {
         const pokemonAlterado = {
-            nome: nomeAlterado, // Enviar o nome alterado
+            nome: nomeAlterado,
             descricao,
             tipos,
             preEvolucoes,
@@ -93,7 +93,7 @@ function AlterarPokemonWiki() {
                     <input 
                         type="text" 
                         value={nomeAlterado}
-                        onChange={digitarNomeAlterado} // Permite editar o nome
+                        onChange={digitarNomeAlterado}
                     />
 
                     <label>Descrição:</label>

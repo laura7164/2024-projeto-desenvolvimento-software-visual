@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { PokemonWiki } from '../../../models/PokemonWiki';
+import { SeusPokemons } from '../../../models/SeusPokemons';
 
-function ListarPokemonWiki() {
-    const [pokemons, setPokemons] = useState<PokemonWiki[]>([]);
+function ListarSeusPokemons() {
+    const [pokemons, setPokemons] = useState<SeusPokemons[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:5244/api/pokemon_wiki/listar') 
+        fetch('http://localhost:5244/api/seu_pokemon/listar') 
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Erro na requisição: ' + response.statusText);
@@ -22,27 +22,23 @@ function ListarPokemonWiki() {
 
     return (  
         <div> 
-            <h1>Listagem de Pokémons</h1>
+            <h1>Listagem dos seus Pokémons</h1>
             <table>
                 <thead>
                     <tr>
                         <th> ID </th>
                         <th> Nome </th>
-                        <th> Descrição </th>
+                        <th> Pc </th>
                         <th> Tipos </th>
-                        <th> Pré-evoluções </th>
-                        <th> Evolui Para </th>
                     </tr>
                 </thead>
                 <tbody>
                     {pokemons.map(pokemon => (
-                        <tr key={pokemon.pokemonWikiId}> {}
-                            <td>{pokemon.pokemonWikiId}</td> {}
+                        <tr key={pokemon.seusPokemonsId}> {}
+                            <td>{pokemon.seusPokemonsId}</td> {}
                             <td>{pokemon.nome}</td>
-                            <td>{pokemon.descricao}</td>
+                            <td>{pokemon.pc}</td>
                             <td>{pokemon.tipos.join(', ')}</td>
-                            <td>{pokemon.preEvolucoes.join(', ')}</td>
-                            <td>{pokemon.evoluiPara.join(', ')}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -51,4 +47,4 @@ function ListarPokemonWiki() {
     );
 }
 
-export default ListarPokemonWiki;
+export default ListarSeusPokemons;

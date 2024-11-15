@@ -1,15 +1,15 @@
 import { useState } from "react";
 
-function DeletarPokemonWiki() {
-    const [nome, setNome] = useState<string>(''); 
+function DeletarSeuPokemon() {
+    const [id, setId] = useState<string>('');
     const [mensagem, setMensagem] = useState<string>(''); 
 
-    function digitarNome(e: React.ChangeEvent<HTMLInputElement>) {
-        setNome(e.target.value);
+    function digitarId(e: React.ChangeEvent<HTMLInputElement>) {
+        setId(e.target.value);
     }
 
     function deletarPokemon() {
-        fetch(`http://localhost:5244/api/pokemon_wiki/deletar/${nome}`, {
+        fetch(`http://localhost:5244/api/seu_pokemon/deletar/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ function DeletarPokemonWiki() {
         })
         .then(pokemonDeletado => {
             setMensagem(`Pokémon ${pokemonDeletado.nome} deletado com sucesso!`);
-            setNome(''); 
+            setId(''); 
         })
         .catch(error => {
             setMensagem(`Erro: ${error.message}`);
@@ -33,13 +33,13 @@ function DeletarPokemonWiki() {
 
     return (
         <div>
-            <h1>Deletar Pokémon</h1>
+            <h1>Deletar Seu Pokémon</h1>
 
-            <label>Nome do Pokémon a ser deletado:</label>
+            <label>ID do Pokémon a ser deletado:</label>
             <input 
                 type="text" 
-                value={nome}
-                onChange={digitarNome}
+                value={id}
+                onChange={digitarId}
             />
             <button onClick={deletarPokemon}>Deletar</button>
 
@@ -48,4 +48,4 @@ function DeletarPokemonWiki() {
     );
 }
 
-export default DeletarPokemonWiki;
+export default DeletarSeuPokemon;

@@ -11,6 +11,10 @@ import ListarSeusPokemons from './components/pages/seusPokemons/SeusPokemonsList
 import BuscarSeuPokemon from './components/pages/seusPokemons/SeusPokemonsBuscar';
 import AlterarSeuPokemon from './components/pages/seusPokemons/SeusPokemonsAlterar';
 import DeletarSeuPokemon from './components/pages/seusPokemons/SeusPokemonsDeletar';
+import CadastrarBatalha from './components/pages/batalha/BatalhaCadastrar';
+import ListarBatalhas from './components/pages/batalha/BatalhaListar';
+import BuscarBatalha from './components/pages/batalha/BatalhaBuscar';
+import DeletarBatalha from './components/pages/batalha/BatalhaDeletar';
 
 function App() {
   return (
@@ -54,6 +58,18 @@ function App() {
             <li>
               <Link to="/pages/seusPokemons/deletar">deletar um pokemon dos seus pokemons</Link>
             </li>
+            <li>
+              <Link to="/pages/batalha/cadastrar">cadastrar batalha</Link>
+            </li>
+            <li>
+              <Link to="/pages/batalha/listar">listar batalhas</Link>
+            </li>
+            <li>
+              <Link to="/pages/batalha/buscar">buscar batalha pelo id</Link>
+            </li>
+            <li>
+              <Link to="/pages/batalha/deletar">deletar batalha pelo id</Link>
+            </li>
           </ul>
         </nav>
         <Routes>
@@ -68,6 +84,10 @@ function App() {
           <Route path="/pages/seusPokemons/buscar" element={<BuscarSeuPokemon />} />
           <Route path="/pages/seusPokemons/alterar" element={<AlterarSeuPokemon />} />
           <Route path="/pages/seusPokemons/deletar" element={<DeletarSeuPokemon />} />
+          <Route path="/pages/batalha/cadastrar" element={<CadastrarBatalha />} />
+          <Route path="/pages/batalha/listar" element={<ListarBatalhas />} />
+          <Route path="/pages/batalha/buscar" element={<BuscarBatalha />} />
+          <Route path="/pages/batalha/deletar" element={<DeletarBatalha />} />
         </Routes>
       </BrowserRouter>
     </div>

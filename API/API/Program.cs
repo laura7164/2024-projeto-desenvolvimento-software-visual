@@ -236,6 +236,40 @@ app.MapDelete("/api/batalha/deletar/{id}", ([FromRoute] int id, [FromServices] A
     return Results.Ok(batalha);
 });
 
+
+// para fazer o registro do user
+app.MapPost("/api/auth/register", async ([FromBody] Usuario user, [FromServices] AppDataContext ctx) =>
+{
+    // Verifica se o usuário já existe
+    var userExists = await ctx.Usuarios.FirstOrDefaultAsync(u => u.Username == user.Username);
+
+    if (userExists != null)
+    {
+        return Results.BadRequest("Usuário já existe.");
+    }
+
+    // Adiciona o usuário diretamente
+    ctx.Usuarios.Add(user);
+    await ctx.SaveChangesAsync();
+
+    return Results.Created($"/api/auth/{user.UsuarioId}", user);
+});
+
+//para fazer o login do usuário
+app.MapPost("/api/auth/login", async ([FromBody] Usuario loginRequest, [FromServices] AppDataContext ctx) =>
+{
+    // Verifica as credenciais diretamente
+    var user = await ctx.Usuarios.FirstOrDefaultAsync(u =>
+        u.Username == loginRequest.Username && u.Password == loginRequest.Password);
+
+    if (user == null)
+    {
+        return Results.Unauthorized();
+    }
+
+    return Results.Ok(new { message = "Login realizado com sucesso!" });
+});
+
 app.UseCors("Acesso Total");
 
 app.Run();

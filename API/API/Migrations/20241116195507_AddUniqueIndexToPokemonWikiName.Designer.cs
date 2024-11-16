@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20241017223440_AddUniqueIndexToPokemonWikiName")]
+    [Migration("20241116195507_AddUniqueIndexToPokemonWikiName")]
     partial class AddUniqueIndexToPokemonWikiName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
 
             modelBuilder.Entity("API.Models.Batalha", b =>
                 {
@@ -62,18 +62,18 @@ namespace API.Migrations
                     b.Property<string>("Descricao")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("EvoluiPara")
+                    b.PrimitiveCollection<string>("EvoluiPara")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PreEvolucoes")
+                    b.PrimitiveCollection<string>("PreEvolucoes")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Tipos")
+                    b.PrimitiveCollection<string>("Tipos")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -100,13 +100,33 @@ namespace API.Migrations
                     b.Property<int>("PC")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Tipos")
+                    b.PrimitiveCollection<string>("Tipos")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("SeusPokemonsId");
 
                     b.ToTable("SeusPokemons");
+                });
+
+            modelBuilder.Entity("API.Models.Usuario", b =>
+                {
+                    b.Property<int>("UsuarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UsuarioId");
+
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("API.Models.Batalha", b =>

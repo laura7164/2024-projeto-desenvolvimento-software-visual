@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\laura\\Documents\\projeto\\2024-projeto-desenvolvimento-software-visual\\API\\API\\API.csproj": {}
+    "C:\\Users\\linad\\Documents\\projeto pokedex\\2024-projeto-desenvolvimento-software-visual-main\\API\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\laura\\Documents\\projeto\\2024-projeto-desenvolvimento-software-visual\\API\\API\\API.csproj": {
+    "C:\\Users\\linad\\Documents\\projeto pokedex\\2024-projeto-desenvolvimento-software-visual-main\\API\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\laura\\Documents\\projeto\\2024-projeto-desenvolvimento-software-visual\\API\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\linad\\Documents\\projeto pokedex\\2024-projeto-desenvolvimento-software-visual-main\\API\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\laura\\Documents\\projeto\\2024-projeto-desenvolvimento-software-visual\\API\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\laura\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\laura\\Documents\\projeto\\2024-projeto-desenvolvimento-software-visual\\API\\API\\obj\\",
+        "projectPath": "C:\\Users\\linad\\Documents\\projeto pokedex\\2024-projeto-desenvolvimento-software-visual-main\\API\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\linad\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\linad\\Documents\\projeto pokedex\\2024-projeto-desenvolvimento-software-visual-main\\API\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\laura\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\linad\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -47,11 +47,11 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.10, )"
+              "version": "[9.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[8.0.10, )"
+              "version": "[9.0.0, )"
             }
           },
           "imports": [
@@ -73,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -15,6 +15,8 @@ import CadastrarBatalha from './components/pages/batalha/BatalhaCadastrar';
 import ListarBatalhas from './components/pages/batalha/BatalhaListar';
 import BuscarBatalha from './components/pages/batalha/BatalhaBuscar';
 import DeletarBatalha from './components/pages/batalha/BatalhaDeletar';
+import CadastrarUsuario from './components/pages/usuario/UsuarioRegistrar';
+import Login from './components/pages/usuario/UsuarioLogar';
 
 function App() {
   return (
@@ -70,6 +72,12 @@ function App() {
             <li>
               <Link to="/pages/batalha/deletar">deletar batalha pelo id</Link>
             </li>
+            <li>
+              <Link to="/pages/usuario/register">registrar usuario</Link>
+            </li>
+            <li>
+              <Link to="/pages/usuario/logar">login</Link>
+            </li>
           </ul>
         </nav>
         <Routes>
@@ -88,6 +96,8 @@ function App() {
           <Route path="/pages/batalha/listar" element={<ListarBatalhas />} />
           <Route path="/pages/batalha/buscar" element={<BuscarBatalha />} />
           <Route path="/pages/batalha/deletar" element={<DeletarBatalha />} />
+          <Route path="/pages/usuario/register" element={<CadastrarUsuario />} />
+          <Route path="/pages/usuario/logar" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>

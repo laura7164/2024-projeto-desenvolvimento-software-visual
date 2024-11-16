@@ -82,3 +82,23 @@ GET http://localhost:5244/api/batalha/buscar/8
 
 ### deletar uma batalha pelo id
 DELETE http://localhost:5244/api/batalha/deletar/6
+
+// CRUD da classe Usuario
+
+### cadastrar um usuario
+POST http://localhost:5244/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "Lina",
+    "password": "123456"
+}
+
+### login de um usuario
+POST http://localhost:5244/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "Lina",
+    "password": "12345"
+}

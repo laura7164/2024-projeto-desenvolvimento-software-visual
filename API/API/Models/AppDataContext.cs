@@ -5,6 +5,7 @@ public class AppDataContext : DbContext {
     public DbSet<PokemonWiki> PokemonsWiki {get; set;} // tabela para a armazenar os pokemons da 'wiki'
     public DbSet<SeusPokemons> SeusPokemons {get; set;}  // tabela para a armazenar os seus pokémons
     public DbSet<Batalha> Batalhas {get; set;} // tabela para a armazenar as batalhas
+    public DbSet<Usuario> Usuarios {get; set;} //tabela para armazenar os usuarios
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
         optionsBuilder.UseSqlite("Data Source=pokemons.db");

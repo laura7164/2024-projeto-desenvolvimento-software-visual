@@ -10,9 +10,10 @@ public class PokemonWiki {
 
     public int PokemonWikiId {get; set;} // id do pokemon
     public string? Nome {get; set;} // nome do pokemon
-    public List<string> Tipos {get; set;} = new List<string>(); // uma lista caso ele tenha mais de um tipo
     public string? Descricao {get; set;} // descrição do pokemon (informações, é forte contra, é fraco contra)
     public List<string> EvoluiPara {get; set;} = new List<string>(); // proxima evolução do pokemon
     public List<string> PreEvolucoes {get; set;} = new List<string>(); // pre evoluções do pokemon
     public DateTime CriadoEm {get; set;} // data/horario que o pokemon foi criado
+    public Tipo Tipo { get; set; }
+    public int TipoId { get; set; }
 }

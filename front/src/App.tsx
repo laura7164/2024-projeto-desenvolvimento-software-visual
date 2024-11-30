@@ -5,7 +5,6 @@ import CadastrarPokemonWiki from './components/pages/pokemonWiki/PokemonWikiCada
 import ListarPokemonWiki from './components/pages/pokemonWiki/PokemonWikiListar';
 import BuscarPokemonWiki from './components/pages/pokemonWiki/PokemonWikiBuscar';
 import AlterarPokemonWiki from './components/pages/pokemonWiki/PokemonWikiAlterar';
-import DeletarPokemonWiki from './components/pages/pokemonWiki/PokemonWikiDeletar';
 import CadastrarSeuPokemon from './components/pages/seusPokemons/SeusPokemonsCadastrar';
 import ListarSeusPokemons from './components/pages/seusPokemons/SeusPokemonsListar';
 import BuscarSeuPokemon from './components/pages/seusPokemons/SeusPokemonsBuscar';
@@ -15,8 +14,6 @@ import CadastrarBatalha from './components/pages/batalha/BatalhaCadastrar';
 import ListarBatalhas from './components/pages/batalha/BatalhaListar';
 import BuscarBatalha from './components/pages/batalha/BatalhaBuscar';
 import DeletarBatalha from './components/pages/batalha/BatalhaDeletar';
-import CadastrarUsuario from './components/pages/usuario/UsuarioRegistrar';
-import Login from './components/pages/usuario/UsuarioLogar';
 
 function App() {
   return (
@@ -38,12 +35,6 @@ function App() {
             </li>
             <li>
               <Link to="/pages/pokemonWiki/alterar">alterar pokemon</Link>
-            </li>
-            <li>
-              <Link to="/pages/pokemonWiki/deletar">deletar pokemon</Link>
-            </li>
-            <li>
-              <Link to="/pages/pokemonWiki/deletar">deletar pokemon</Link>
             </li>
             <li>
               <Link to="/pages/seusPokemons/cadastrar">cadastrar seu pokemon</Link>
@@ -72,12 +63,6 @@ function App() {
             <li>
               <Link to="/pages/batalha/deletar">deletar batalha pelo id</Link>
             </li>
-            <li>
-              <Link to="/pages/usuario/register">registrar usuario</Link>
-            </li>
-            <li>
-              <Link to="/pages/usuario/logar">login</Link>
-            </li>
           </ul>
         </nav>
         <Routes>
@@ -86,7 +71,6 @@ function App() {
           <Route path="/pages/pokemonWiki/listar" element={<ListarPokemonWiki />} />
           <Route path="/pages/pokemonWiki/buscar" element={<BuscarPokemonWiki />} />
           <Route path="/pages/pokemonWiki/alterar" element={<AlterarPokemonWiki />} />
-          <Route path="/pages/pokemonWiki/deletar" element={<DeletarPokemonWiki />} />
           <Route path="/pages/seusPokemons/cadastrar" element={<CadastrarSeuPokemon />} />
           <Route path="/pages/seusPokemons/listar" element={<ListarSeusPokemons />} />
           <Route path="/pages/seusPokemons/buscar" element={<BuscarSeuPokemon />} />
@@ -96,8 +80,6 @@ function App() {
           <Route path="/pages/batalha/listar" element={<ListarBatalhas />} />
           <Route path="/pages/batalha/buscar" element={<BuscarBatalha />} />
           <Route path="/pages/batalha/deletar" element={<DeletarBatalha />} />
-          <Route path="/pages/usuario/register" element={<CadastrarUsuario />} />
-          <Route path="/pages/usuario/logar" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>

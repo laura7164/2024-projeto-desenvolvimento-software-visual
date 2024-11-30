@@ -1,77 +1,118 @@
-import React, { useState } from 'react';
-import { PokemonWiki } from '../../../models/PokemonWiki';
+import { useEffect, useState } from "react";
+import { PokemonWiki } from "../../../models/PokemonWiki";
+import { Tipo } from "../../../models/Tipo";
+import axios from "axios";
 
 function CadastrarPokemonWiki() {
     const [nome, setNome] = useState<string>('');
     const [descricao, setDescricao] = useState<string>('');
-    const [tipos, setTipos] = useState<string[]>([]);
+    const [tipos, setTipos] = useState<Tipo[]>([]);
+    const [tipoId, setTipoId] = useState(0);
     const [preEvolucoes, setPreEvolucoes] = useState<string[]>([]);
     const [evoluiPara, setEvoluiPara] = useState<string[]>([]);
 
-    function handleSubmit(e: any) {
-        e.preventDefault();
+    useEffect(() => {
+        axios
+        .get<Tipo[]>("http://localhost:5244/api/tipo/listar")
+        .then((resposta) => {
+            setTipos(resposta.data);
+        });
+    });
 
-        const novoPokemon = {
-            nome,
-            descricao,
-            tipos,
-            preEvolucoes,
-            evoluiPara
-        };
+    function enviarPokemonWiki(e: any) {
+    e.preventDefault();
 
-        fetch('http://localhost:5244/api/pokemon_wiki/cadastrar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(novoPokemon)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro na requisição: ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => {
-                setNome('');
-                setDescricao('');
-                setTipos([]);
-                setPreEvolucoes([]);
-                setEvoluiPara([]);
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-            });
+    const pokemonWiki: PokemonWiki = {
+      nome: nome,
+      descricao: descricao,
+      preEvolucoes: preEvolucoes,
+      evoluiPara: evoluiPara,
+      tipoId: tipoId,
     };
 
-    return (
-        <div>
-            <h2>Cadastrar novo pokemon na Pokedex</h2>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Nome:
-                    <input type="text" value={nome} onChange={e => setNome(e.target.value)} required />
-                </label>
-                <label>
-                    Descrição:
-                    <input type="text" value={descricao} onChange={e => setDescricao(e.target.value)} required />
-                </label>
-                <label>
-                    Tipos:
-                    <input type="string" value={tipos} onChange={e => setTipos(Array(e.target.value))} required />
-                </label>
-                <label>
-                    PreEvolucoes:
-                    <input type="string" value={preEvolucoes} onChange={e => setPreEvolucoes(Array(e.target.value))} required />
-                </label>
-                <label>
-                    EvoluirPara:
-                    <input type="string" value={evoluiPara} onChange={e => setEvoluiPara(Array(e.target.value))} required />
-                </label>
-                <button type="submit">Cadastrar</button>
-            </form>
-        </div>
-    );
+    
+    fetch("http://localhost:5244/api/pokemon_wiki/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(pokemonWiki),
+    })
+      .then((resposta) => {
+        return resposta.json();
+      })
+      .then((pokemonWiki) => {
+        console.log("Pokemon cadastrado", pokemonWiki);
+      });
+  }
 
+  return (
+    <div id="cadastrar_pokemon" className="container">
+      <h1>Cadastrar Pokemon Wiki</h1>
+      <form onSubmit={enviarPokemonWiki}>
+        <div>
+          <label htmlFor="nome">Nome</label>
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            required
+            onChange={(e: any) => setNome(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="descricao">Descrição</label>
+          <input
+            type="text"
+            id="descricao"
+            name="descricao"
+            onChange={(e: any) => setDescricao(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="preEvolucoes">Pré Evoluções</label>
+          <input
+            type="text"
+            id="preEvolucoes"
+            name="preEvolucoes"
+            onChange={(e: any) => setPreEvolucoes(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="evoluiPara">Evolui para</label>
+          <input
+            type="text"
+            id="evoluiPara"
+            name="evoluiPara"
+            onChange={(e: any) => setEvoluiPara(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="tipo">Tipos</label>
+          <select
+            onChange={(e: any) => setTipoId(e.target.value)}
+          >
+            {tipos.map((tipo) => (
+              <option
+                value={tipo.TipoId}
+                key={tipo.TipoId}
+              >
+                {tipo.nome}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <button type="submit">Cadastrar Pokemon Wiki</button>
+      </form>
+    </div>
+  );
 }
+
 export default CadastrarPokemonWiki;
+
+

@@ -10,8 +10,9 @@ public class SeusPokemons {
 
     public int SeusPokemonsId {get; set;} // id do pokemon
     public string? Nome {get; set;} // nome do pokemon
-    public List<string> Tipos {get; set;} = new List<string>(); // uma lista caso ele tenha mais de um tipo
     public int PC {get; set;} // pontos de combate do pokemon
     public DateTime CriadoEm {get; set;} // quando o pokemon foi criado
+    public Tipo Tipo { get; set; }
+    public int TipoId { get; set; }
 
 }

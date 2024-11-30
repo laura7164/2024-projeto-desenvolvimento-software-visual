@@ -20,6 +20,14 @@ app.MapGet("/", () => "API de Pokemon");
 // CRUD da classe PokemonWiki
 app.MapPost("/api/pokemon_wiki/cadastrar", ([FromBody] PokemonWiki pokemon, [FromServices] AppDataContext ctx) =>
 {
+
+    Tipo? tipo = ctx.Tipos.Find(pokemon.TipoId);
+    if (tipo is null)
+    {
+        return Results.NotFound();
+    }
+    pokemon.Tipo = tipo;
+
     var pokemonExistente = ctx.PokemonsWiki.FirstOrDefault(p => p.Nome == pokemon.Nome);
 
     if (pokemonExistente != null)
@@ -38,10 +46,10 @@ app.MapGet("/api/pokemon_wiki/listar", ([FromServices] AppDataContext ctx) =>
 
     if (ctx.PokemonsWiki.Any())
     {
-        return Results.Ok(ctx.PokemonsWiki.ToList());
+        return Results.Ok(ctx.PokemonsWiki.Include(x => x.Tipo).ToList());
     }
-
     return Results.NotFound();
+
 });
 
 app.MapGet("/api/pokemon_wiki/buscar/{nome}", ([FromRoute] string nome, [FromServices] AppDataContext ctx) =>
@@ -80,8 +88,14 @@ app.MapPut("/api/pokemon_wiki/alterar/{nome}", ([FromRoute] string nome, [FromBo
         return Results.NotFound();
     }
 
+    Tipo? tipo = ctx.Tipos.Find(pokemon.TipoId);
+    if (tipo is null)
+    {
+        return Results.NotFound();
+    }
+
     pokemon.Nome = pokemonAlterado.Nome;
-    pokemon.Tipos = pokemonAlterado.Tipos;
+    pokemon.Tipo = tipo;
     pokemon.Descricao = pokemonAlterado.Descricao;
     pokemon.EvoluiPara = pokemonAlterado.EvoluiPara;
     pokemon.PreEvolucoes = pokemonAlterado.PreEvolucoes;
@@ -95,6 +109,14 @@ app.MapPut("/api/pokemon_wiki/alterar/{nome}", ([FromRoute] string nome, [FromBo
 // CRUD da classe SeusPokemons
 app.MapPost("/api/seu_pokemon/cadastrar", ([FromBody] SeusPokemons seuPokemon, [FromServices] AppDataContext ctx) =>
 {
+
+    Tipo? tipo = ctx.Tipos.Find(seuPokemon.TipoId);
+    if (tipo is null)
+    {
+        return Results.NotFound();
+    }
+    seuPokemon.Tipo = tipo;
+
     ctx.SeusPokemons.Add(seuPokemon);
     ctx.SaveChanges();
 
@@ -106,10 +128,10 @@ app.MapGet("/api/seu_pokemon/listar", ([FromServices] AppDataContext ctx) =>
 
     if (ctx.SeusPokemons.Any())
     {
-        return Results.Ok(ctx.SeusPokemons.ToList());
+        return Results.Ok(ctx.SeusPokemons.Include(x => x.Tipo).ToList());
     }
-
     return Results.NotFound();
+
 });
 
 app.MapGet("/api/seu_pokemon/buscar/{id}", ([FromRoute] int id, [FromServices] AppDataContext ctx) =>
@@ -141,33 +163,25 @@ app.MapDelete("/api/seu_pokemon/deletar/{id}", ([FromRoute] int id, [FromService
 
 app.MapPut("/api/seu_pokemon/alterar/{id}", ([FromRoute] int id, [FromBody] SeusPokemons pokemonAlterado, [FromServices] AppDataContext ctx) =>
 {
-    SeusPokemons? pokemon = ctx.SeusPokemons.Find(id);
-
-    if (pokemon == null)
+    
+    SeusPokemons? seusPokemons = ctx.SeusPokemons.Find(id);
+    if (seusPokemons == null)
     {
         return Results.NotFound();
     }
 
-    // Atualiza somente os campos não nulos
-    if (!string.IsNullOrWhiteSpace(pokemonAlterado.Nome))
+    Tipo? tipo = ctx.Tipos.Find(seusPokemons.TipoId);
+    if (tipo is null)
     {
-        pokemon.Nome = pokemonAlterado.Nome;
+        return Results.NotFound();
     }
 
-    if (pokemonAlterado.Tipos != null && pokemonAlterado.Tipos.Any())
-    {
-        pokemon.Tipos = pokemonAlterado.Tipos;
-    }
-
-    if (pokemonAlterado.PC > 0)
-    {
-        pokemon.PC = pokemonAlterado.PC;
-    }
-
-    ctx.SeusPokemons.Update(pokemon);
+    seusPokemons.Tipo = tipo;
+    seusPokemons.Nome = pokemonAlterado.Nome;
+    seusPokemons.PC = pokemonAlterado.PC;
+    ctx.SeusPokemons.Update(seusPokemons);
     ctx.SaveChanges();
-
-    return Results.Ok(pokemon);
+    return Results.Ok(seusPokemons);
 });
 
 
@@ -236,38 +250,24 @@ app.MapDelete("/api/batalha/deletar/{id}", ([FromRoute] int id, [FromServices] A
     return Results.Ok(batalha);
 });
 
+// Tipo
 
-// para fazer o registro do user
-app.MapPost("/api/auth/register", async ([FromBody] Usuario user, [FromServices] AppDataContext ctx) =>
+app.MapGet("/api/tipo/listar", ([FromServices] AppDataContext ctx) =>
 {
-    // Verifica se o usuário já existe
-    var userExists = await ctx.Usuarios.FirstOrDefaultAsync(u => u.Username == user.Username);
-
-    if (userExists != null)
+    if (ctx.Tipos.Any())
     {
-        return Results.BadRequest("Usuário já existe.");
+        return Results.Ok(ctx.Tipos.ToList());
     }
-
-    // Adiciona o usuário diretamente
-    ctx.Usuarios.Add(user);
-    await ctx.SaveChangesAsync();
-
-    return Results.Created($"/api/auth/{user.UsuarioId}", user);
+    return Results.NotFound();
 });
 
-//para fazer o login do usuário
-app.MapPost("/api/auth/login", async ([FromBody] Usuario loginRequest, [FromServices] AppDataContext ctx) =>
+
+app.MapPost("/api/tipo/cadastrar", ([FromBody] Tipo tipo,
+    [FromServices] AppDataContext ctx) =>
 {
-    // Verifica as credenciais diretamente
-    var user = await ctx.Usuarios.FirstOrDefaultAsync(u =>
-        u.Username == loginRequest.Username && u.Password == loginRequest.Password);
-
-    if (user == null)
-    {
-        return Results.Unauthorized();
-    }
-
-    return Results.Ok(new { message = "Login realizado com sucesso!" });
+    ctx.Tipos.Add(tipo);
+    ctx.SaveChanges();
+    return Results.Created("", tipo);
 });
 
 app.UseCors("Acesso Total");

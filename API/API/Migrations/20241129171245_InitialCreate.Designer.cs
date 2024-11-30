@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20241116195253_InitialCreate")]
+    [Migration("20241129171245_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -73,14 +73,15 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.PrimitiveCollection<string>("Tipos")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("TipoId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("PokemonWikiId");
 
                     b.HasIndex("Nome")
                         .IsUnique();
+
+                    b.HasIndex("TipoId");
 
                     b.ToTable("PokemonsWiki");
                 });
@@ -100,33 +101,31 @@ namespace API.Migrations
                     b.Property<int>("PC")
                         .HasColumnType("INTEGER");
 
-                    b.PrimitiveCollection<string>("Tipos")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("TipoId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("SeusPokemonsId");
+
+                    b.HasIndex("TipoId");
 
                     b.ToTable("SeusPokemons");
                 });
 
-            modelBuilder.Entity("API.Models.Usuario", b =>
+            modelBuilder.Entity("API.Models.Tipo", b =>
                 {
-                    b.Property<int>("UsuarioId")
+                    b.Property<int>("TipoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CriadoEm")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Username")
-                        .HasColumnType("TEXT");
+                    b.HasKey("TipoId");
 
-                    b.HasKey("UsuarioId");
-
-                    b.ToTable("Usuarios");
+                    b.ToTable("Tipos");
                 });
 
             modelBuilder.Entity("API.Models.Batalha", b =>
@@ -146,6 +145,28 @@ namespace API.Migrations
                     b.Navigation("Pokemon1");
 
                     b.Navigation("Pokemon2");
+                });
+
+            modelBuilder.Entity("API.Models.PokemonWiki", b =>
+                {
+                    b.HasOne("API.Models.Tipo", "Tipo")
+                        .WithMany()
+                        .HasForeignKey("TipoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tipo");
+                });
+
+            modelBuilder.Entity("API.Models.SeusPokemons", b =>
+                {
+                    b.HasOne("API.Models.Tipo", "Tipo")
+                        .WithMany()
+                        .HasForeignKey("TipoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tipo");
                 });
 #pragma warning restore 612, 618
         }

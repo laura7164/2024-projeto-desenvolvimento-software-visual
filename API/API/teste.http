@@ -7,32 +7,32 @@ POST http://localhost:5244/api/pokemon_wiki/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "Charizard",
-    "tipos": ["Fogo", "Voador"],
-    "descricao": "Charizard é forte contra Pokémon de planta e inseto, mas fraco contra Pokémon de água.",
+    "nome": "Sylveon",
+    "tipoId": 1,
+    "descricao": "Muito kawaizinha",
     "evoluiPara": [],
-    "preEvolucoes": ["Charmander", "Charmeleon"]
+    "preEvolucoes": ["Evee"]
 }
 
 ### listar todos os pokemons
 GET http://localhost:5244/api/pokemon_wiki/listar
 
 ### buscar um pokemon pelo nome
-GET http://localhost:5244/api/pokemon_wiki/buscar/Charizard
+GET http://localhost:5244/api/pokemon_wiki/buscar/Sylveon
 
 ### deletar um pokemon pelo nome
-DELETE http://localhost:5244/api/pokemon_wiki/deletar/Charizard2
+DELETE http://localhost:5244/api/pokemon_wiki/deletar/Sylveon
 
 ### alterar informações do pokemon
-PUT http://localhost:5244/api/pokemon_wiki/alterar/Charizard
+PUT http://localhost:5244/api/pokemon_wiki/alterar/Sylveon
 Content-Type: application/json
 
 {
-    "nome": "Charizard2",
-    "tipos": ["Normal"],
-    "descricao": "A genética instável de eevee permite que evolua com o ambiente em que vive, ela é forte contra pokémons do tipo fantasma e fraca contra pokémons do tipo lutador.",
-    "evoluiPara": ["Vaporeon", "Flareon", "Jolteon", "Sylveon", "Umbreon", "Espeon", "Leafeon", "Glaceon"],
-    "preEvolucoes": []
+    "nome": "Sylveon3",
+    "tipoId": 2,
+    "descricao": "Muito kawai.",
+    "evoluiPara": [],
+    "preEvolucoes": ["Evee"]
 }
 
 // CRUD da classe SeusPokemons
@@ -41,8 +41,8 @@ POST http://localhost:5244/api/seu_pokemon/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "Pikachu",
-    "tipos": ["Eletrico"],
+    "nome": "Flareon",
+    "tipoId": 2,
     "pc": 1700
 }
 
@@ -50,24 +50,24 @@ Content-Type: application/json
 GET http://localhost:5244/api/seu_pokemon/listar
 
 ### buscar um pokemon pelo id
-GET http://localhost:5244/api/seu_pokemon/buscar/7
+GET http://localhost:5244/api/seu_pokemon/buscar/1
 
 ### deletar um pokemon pelo id
-DELETE http://localhost:5244/api/seu_pokemon/deletar/9
+DELETE http://localhost:5244/api/seu_pokemon/deletar/1
 
 ### alterar informações do pokemon
-PUT http://localhost:5244/api/seu_pokemon/alterar/8
+PUT http://localhost:5244/api/seu_pokemon/alterar/2
 Content-Type: application/json
 
 {
-    "nome": "Sylveon",
-    "tipos": ["Fada"],
+    "nome": "Magmar2",
+    "tipos": 1,
     "pc": 1800
 }
 
 // CRUD da classe Batalha
 ### cadastrar uma batalha
-POST http://localhost:5244/api/batalha/cadastrar/8/9
+POST http://localhost:5244/api/batalha/cadastrar/2/3
 Content-Type: application/json
 
 {
@@ -78,27 +78,19 @@ Content-Type: application/json
 GET http://localhost:5244/api/batalha/listar
 
 ### buscar uma batalha pelo id
-GET http://localhost:5244/api/batalha/buscar/8
+GET http://localhost:5244/api/batalha/buscar/1
 
 ### deletar uma batalha pelo id
-DELETE http://localhost:5244/api/batalha/deletar/6
+DELETE http://localhost:5244/api/batalha/deletar/1
 
-// CRUD da classe Usuario
+// tipos
+### listar tipos
+GET http://localhost:5244/api/tipo/listar
 
-### cadastrar um usuario
-POST http://localhost:5244/api/auth/register
+### cadastrar tipo
+POST http://localhost:5244/api/tipo/cadastrar
 Content-Type: application/json
 
 {
-    "username": "Lina",
-    "password": "123456"
-}
-
-### login de um usuario
-POST http://localhost:5244/api/auth/login
-Content-Type: application/json
-
-{
-    "username": "Lina",
-    "password": "12345"
+    "nome" : "Água"
 }

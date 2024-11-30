@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\linad\\Documents\\projeto pokedex\\2024-projeto-desenvolvimento-software-visual-main\\API\\API\\API.csproj": {}
+    "C:\\Users\\linad\\Documents\\projeto pokedex\\API\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\linad\\Documents\\projeto pokedex\\2024-projeto-desenvolvimento-software-visual-main\\API\\API\\API.csproj": {
+    "C:\\Users\\linad\\Documents\\projeto pokedex\\API\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\linad\\Documents\\projeto pokedex\\2024-projeto-desenvolvimento-software-visual-main\\API\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\linad\\Documents\\projeto pokedex\\API\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\linad\\Documents\\projeto pokedex\\2024-projeto-desenvolvimento-software-visual-main\\API\\API\\API.csproj",
+        "projectPath": "C:\\Users\\linad\\Documents\\projeto pokedex\\API\\API\\API.csproj",
         "packagesPath": "C:\\Users\\linad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\linad\\Documents\\projeto pokedex\\2024-projeto-desenvolvimento-software-visual-main\\API\\API\\obj\\",
+        "outputPath": "C:\\Users\\linad\\Documents\\projeto pokedex\\API\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\linad\\AppData\\Roaming\\NuGet\\NuGet.Config"

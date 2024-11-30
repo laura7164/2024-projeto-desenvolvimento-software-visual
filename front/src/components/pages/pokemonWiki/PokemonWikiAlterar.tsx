@@ -1,133 +1,131 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { PokemonWiki } from "../../../models/PokemonWiki";
+import { Tipo } from "../../../models/Tipo";
 
-function AlterarPokemonWiki() {
-    const [nome, setNome] = useState<string>('');
-    const [nomeAlterado, setNomeAlterado] = useState<string>('');
-    const [descricao, setDescricao] = useState<string>('');
-    const [tipos, setTipos] = useState<string[]>([]);
-    const [preEvolucoes, setPreEvolucoes] = useState<string[]>([]);
-    const [evoluiPara, setEvoluiPara] = useState<string[]>([]);
-    const [buscaConcluida, setBuscaConcluida] = useState<boolean>(false);
+function PokemonWikiAlterar() {
+  const { nomeParam } = useParams(); 
+  const [nome, setNome] = useState<string>('');
+  const [descricao, setDescricao] = useState<string>('');
+  const [tipos, setTipos] = useState<Tipo[]>([]);
+  const [tipoId, setTipoId] = useState<number>(0);
+  const [preEvolucoes, setPreEvolucoes] = useState<string[]>([]);
+  const [evoluiPara, setEvoluiPara] = useState<string[]>([]);
 
-    function digitarNome(e: React.ChangeEvent<HTMLInputElement>) {
-        setNome(e.target.value);
+  useEffect(() => {
+    if (nomeParam) {
+      axios
+        .get<PokemonWiki>(
+          `http://localhost:5244/api/pokemon_wiki/buscar_por_nome/${nomeParam}`
+        )
+        .then((resposta) => {
+          setNome(resposta.data.nome);
+          setDescricao(resposta.data.descricao);
+          setPreEvolucoes(resposta.data.preEvolucoes);
+          setEvoluiPara(resposta.data.evoluiPara);
+          setTipoId(resposta.data.tipoId!); 
+          buscarTipos();
+        });
     }
+  }, [nomeParam]); 
 
-    function digitarNomeAlterado(e: React.ChangeEvent<HTMLInputElement>) {
-        setNomeAlterado(e.target.value);
-    }
+  function buscarTipos() {
+    axios
+      .get<Tipo[]>("http://localhost:5244/api/tipo/listar")
+      .then((resposta) => {
+        setTipos(resposta.data);
+      });
+  }
 
-    function buscarPokemon() {
-        fetch(`http://localhost:5244/api/pokemon_wiki/buscar/${nome}`)
-            .then(resposta => {
-                if (resposta.ok) {
-                    return resposta.json();
-                } else {
-                    throw new Error("Pokémon não encontrado.");
-                }
-            })
-            .then(pokemon => {
-                setNomeAlterado(pokemon.nome);
-                setDescricao(pokemon.descricao || '');
-                setTipos(pokemon.tipos || []);
-                setPreEvolucoes(pokemon.preEvolucoes || []);
-                setEvoluiPara(pokemon.evoluiPara || []);
-                setBuscaConcluida(true);
-            })
-            .catch(error => {
-                console.error("Erro ao buscar Pokémon:", error);
-                alert("Pokémon não encontrado!");
-                setBuscaConcluida(false);
-            });
-    }
+  function enviarPokemonWiki(e: any) {
+    e.preventDefault();
 
-    function alterarPokemon() {
-        const pokemonAlterado = {
-            nome: nomeAlterado,
-            descricao,
-            tipos,
-            preEvolucoes,
-            evoluiPara
-        };
+    const pokemonWiki: PokemonWiki = {
+      nome: nome,
+      descricao: descricao,
+      preEvolucoes: preEvolucoes,
+      evoluiPara: evoluiPara,
+      tipoId: tipoId,
+    };
 
-        fetch(`http://localhost:5244/api/pokemon_wiki/alterar/${nome}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(pokemonAlterado)
-        })
-        .then(resposta => {
-            if (resposta.ok) {
-                return resposta.json();
-            } else {
-                throw new Error("Erro ao atualizar Pokémon.");
-            }
-        })
-        .then(pokemonAtualizado => {
-            alert("Pokémon atualizado com sucesso!");
-            setNome(pokemonAtualizado.nome);
-            setDescricao(pokemonAtualizado.descricao || '');
-            setTipos(pokemonAtualizado.tipos || []);
-            setPreEvolucoes(pokemonAtualizado.preEvolucoes || []);
-            setEvoluiPara(pokemonAtualizado.evoluiPara || []);
-        })
-        .catch(error => console.error("Erro ao atualizar Pokémon:", error));
-    }
+    axios
+      .put(`http://localhost:5244/api/pokemon_wiki/alterar_por_nome/${nomeParam}`, pokemonWiki)
+      .then((resposta) => {
+        console.log(resposta.data);
+      });
+  }
 
-    return (
+  return (
+    <div id="alterar-pokemonwiki" className="container">
+      <h1>Alterar PokemonWiki</h1>
+      <form onSubmit={enviarPokemonWiki}>
         <div>
-            <h1>Alterar Pokémon</h1>
-
-            <label>Nome do Pokémon a ser alterado:</label>
-            <input 
-                type="text" 
-                value={nome}
-                onChange={digitarNome}
-            />
-            <button onClick={buscarPokemon}>Buscar</button>
-
-            {buscaConcluida && (
-                <>
-                    <label>Nome Alterado:</label>
-                    <input 
-                        type="text" 
-                        value={nomeAlterado}
-                        onChange={digitarNomeAlterado}
-                    />
-
-                    <label>Descrição:</label>
-                    <textarea 
-                        value={descricao}
-                        onChange={(e) => setDescricao(e.target.value)}
-                    />
-
-                    <label>Tipos (separados por vírgula):</label>
-                    <input 
-                        type="text" 
-                        value={tipos.join(', ')}
-                        onChange={(e) => setTipos(e.target.value.split(',').map(tipo => tipo.trim()))}
-                    />
-
-                    <label>Pré-evoluções (separadas por vírgula):</label>
-                    <input 
-                        type="text" 
-                        value={preEvolucoes.join(', ')}
-                        onChange={(e) => setPreEvolucoes(e.target.value.split(',').map(preEvo => preEvo.trim()))}
-                    />
-
-                    <label>Evolui para (separados por vírgula):</label>
-                    <input 
-                        type="text" 
-                        value={evoluiPara.join(', ')}
-                        onChange={(e) => setEvoluiPara(e.target.value.split(',').map(evo => evo.trim()))}
-                    />
-
-                    <button onClick={alterarPokemon}>Alterar</button>
-                </>
-            )}
+          <label htmlFor="nome">Nome</label>
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            value={nome}
+            required
+            onChange={(e: any) => setNome(e.target.value)}
+          />
         </div>
-    );
+
+        <div>
+          <label htmlFor="descricao">Descrição</label>
+          <input
+            type="text"
+            id="descricao"
+            value={descricao}
+            name="descricao"
+            onChange={(e: any) => setDescricao(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="preEvolucoes">Pré Evoluções</label>
+          <input
+            type="text"
+            id="preEvolucoes"
+            name="preEvolucoes"
+            value={preEvolucoes}
+            onChange={(e: any) => setPreEvolucoes(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="evoluiPara">Evolui para</label>
+          <input
+            type="text"
+            id="evoluiPara"
+            name="evoluiPara"
+            value={evoluiPara}
+            onChange={(e: any) => setEvoluiPara(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="tipo">Tipos</label>
+          <select
+            value={tipoId}
+            onChange={(e: any) => setTipoId(Number(e.target.value))}
+          >
+            {tipos.map((tipo) => (
+              <option
+                value={tipo.TipoId}
+                key={tipo.TipoId}
+              >
+                {tipo.nome}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <button type="submit">Alterar PokemonWiki</button>
+      </form>
+    </div>
+  );
 }
 
-export default AlterarPokemonWiki;
+export default PokemonWikiAlterar;

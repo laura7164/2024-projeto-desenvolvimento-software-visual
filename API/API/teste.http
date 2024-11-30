@@ -7,32 +7,32 @@ POST http://localhost:5244/api/pokemon_wiki/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "Sylveon",
-    "tipoId": 1,
-    "descricao": "Muito kawaizinha",
-    "evoluiPara": [],
-    "preEvolucoes": ["Evee"]
+    "nome": "teste",
+    "descricao": "teste",
+    "evoluiPara": ["teste", "teste"],
+    "preEvolucoes": ["teste", "teste"],
+    "tipoId": 1
 }
 
 ### listar todos os pokemons
 GET http://localhost:5244/api/pokemon_wiki/listar
 
 ### buscar um pokemon pelo nome
-GET http://localhost:5244/api/pokemon_wiki/buscar/Sylveon
+GET http://localhost:5244/api/pokemon_wiki/buscar/teste
 
 ### deletar um pokemon pelo nome
-DELETE http://localhost:5244/api/pokemon_wiki/deletar/Sylveon
+DELETE http://localhost:5244/api/pokemon_wiki/deletar/teste
 
 ### alterar informações do pokemon
-PUT http://localhost:5244/api/pokemon_wiki/alterar/Sylveon
+PUT http://localhost:5244/api/pokemon_wiki/alterar/teste
 Content-Type: application/json
 
 {
-    "nome": "Sylveon3",
-    "tipoId": 2,
-    "descricao": "Muito kawai.",
-    "evoluiPara": [],
-    "preEvolucoes": ["Evee"]
+    "nome": "teste2",
+    "descricao": "teste2",
+    "evoluiPara": ["teste2", "teste2"],
+    "preEvolucoes": ["teste2", "teste2"],
+    "tipoId": 2
 }
 
 // CRUD da classe SeusPokemons
@@ -42,55 +42,58 @@ Content-Type: application/json
 
 {
     "nome": "Flareon",
-    "tipoId": 2,
-    "pc": 1700
+    "pc": 2000,
+    "tipoId": 1
 }
 
 ### listar todos os pokemons
 GET http://localhost:5244/api/seu_pokemon/listar
 
 ### buscar um pokemon pelo id
-GET http://localhost:5244/api/seu_pokemon/buscar/1
+GET http://localhost:5244/api/seu_pokemon/buscar/d1767764-6d99-4432-8bca-1e3016d5f637
 
 ### deletar um pokemon pelo id
-DELETE http://localhost:5244/api/seu_pokemon/deletar/1
+DELETE http://localhost:5244/api/seu_pokemon/deletar/405a3085-3f25-46fd-a41b-d474052f8ee3
 
 ### alterar informações do pokemon
-PUT http://localhost:5244/api/seu_pokemon/alterar/2
+PUT http://localhost:5244/api/seu_pokemon/alterar/d1767764-6d99-4432-8bca-1e3016d5f637
 Content-Type: application/json
 
 {
-    "nome": "Magmar2",
-    "tipos": 1,
-    "pc": 1800
+    "nome": "Eevee",
+    "pc": 500,
+    "tipoId": 3
 }
 
 // CRUD da classe Batalha
 ### cadastrar uma batalha
-POST http://localhost:5244/api/batalha/cadastrar/2/3
+POST http://localhost:5244/api/batalha/cadastrar/5eb740db-fda2-4899-84ea-8045c226c920/acd6b44a-7a81-44ed-b868-76288d2d62b4
 Content-Type: application/json
 
 {
-    "titulo": "teste"
+    "titulo": "charizard vs flareon"
 }
 
 ### listar todas as batalhas
 GET http://localhost:5244/api/batalha/listar
 
 ### buscar uma batalha pelo id
-GET http://localhost:5244/api/batalha/buscar/1
+GET http://localhost:5244/api/batalha/buscar/0c802a02-1fad-449a-a880-d38cb5d4d33a
 
 ### deletar uma batalha pelo id
-DELETE http://localhost:5244/api/batalha/deletar/1
+DELETE http://localhost:5244/api/batalha/deletar/0c802a02-1fad-449a-a880-d38cb5d4d33a
 
-// tipos
+// classe tipo (categoria)
 ### listar tipos
 GET http://localhost:5244/api/tipo/listar
 
-### cadastrar tipo
+### cadastrar um tipo
 POST http://localhost:5244/api/tipo/cadastrar
 Content-Type: application/json
 
 {
-    "nome" : "Água"
+    "nome" : "Normal"
 }
+
+### deletar um tipo
+DELETE http://localhost:5244/api/tipo/deletar/3

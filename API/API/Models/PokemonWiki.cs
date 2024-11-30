@@ -5,10 +5,11 @@ namespace API.Models;
 
 public class PokemonWiki {
     public PokemonWiki() {
+        PokemonWikiId = Guid.NewGuid().ToString();
         CriadoEm = DateTime.Now;
     }
 
-    public int PokemonWikiId {get; set;} // id do pokemon
+    public string? PokemonWikiId { get; set; } // id do pokemon
     public string? Nome {get; set;} // nome do pokemon
     public string? Descricao {get; set;} // descrição do pokemon (informações, é forte contra, é fraco contra)
     public List<string> EvoluiPara {get; set;} = new List<string>(); // proxima evolução do pokemon

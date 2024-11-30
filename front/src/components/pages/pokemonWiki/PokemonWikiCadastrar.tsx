@@ -23,13 +23,12 @@ function CadastrarPokemonWiki() {
     e.preventDefault();
 
     const pokemonWiki: PokemonWiki = {
-      nome: nome,
-      descricao: descricao,
-      preEvolucoes: preEvolucoes,
-      evoluiPara: evoluiPara,
-      tipoId: tipoId,
+      nome,
+      descricao,
+      preEvolucoes,
+      evoluiPara,
+      tipoId,
     };
-
     
     fetch("http://localhost:5244/api/pokemon_wiki/cadastrar", {
       method: "POST",
@@ -72,22 +71,22 @@ function CadastrarPokemonWiki() {
         </div>
 
         <div>
-          <label htmlFor="preEvolucoes">Pré Evoluções</label>
+          <label htmlFor="preEvolucoes">Pré Evoluções (separadas por vírgulas)</label>
           <input
             type="text"
             id="preEvolucoes"
             name="preEvolucoes"
-            onChange={(e: any) => setPreEvolucoes(e.target.value)}
+            onChange={(e: any) => setPreEvolucoes(e.target.value.split(","))}
           />
         </div>
 
         <div>
-          <label htmlFor="evoluiPara">Evolui para</label>
+          <label htmlFor="evoluiPara">Evolui para (separadas por vírgulas)</label>
           <input
             type="text"
             id="evoluiPara"
             name="evoluiPara"
-            onChange={(e: any) => setEvoluiPara(e.target.value)}
+            onChange={(e: any) => setEvoluiPara(e.target.value.split(","))}
           />
         </div>
 

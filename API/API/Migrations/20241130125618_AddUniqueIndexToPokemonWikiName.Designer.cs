@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20241129171245_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241130125618_AddUniqueIndexToPokemonWikiName")]
+    partial class AddUniqueIndexToPokemonWikiName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,18 +22,17 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Batalha", b =>
                 {
-                    b.Property<int>("BatalhaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("BatalhaId")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DataBatalha")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Pokemon1Id")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Pokemon1Id")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("Pokemon2Id")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Pokemon2Id")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Titulo")
                         .HasColumnType("TEXT");
@@ -52,9 +51,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.PokemonWiki", b =>
                 {
-                    b.Property<int>("PokemonWikiId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("PokemonWikiId")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CriadoEm")
                         .HasColumnType("TEXT");
@@ -88,9 +86,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.SeusPokemons", b =>
                 {
-                    b.Property<int>("SeusPokemonsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("SeusPokemonsId")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CriadoEm")
                         .HasColumnType("TEXT");
@@ -133,14 +130,12 @@ namespace API.Migrations
                     b.HasOne("API.Models.SeusPokemons", "Pokemon1")
                         .WithMany()
                         .HasForeignKey("Pokemon1Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("API.Models.SeusPokemons", "Pokemon2")
                         .WithMany()
                         .HasForeignKey("Pokemon2Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Pokemon1");
 

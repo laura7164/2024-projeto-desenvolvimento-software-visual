@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20241130125618_AddUniqueIndexToPokemonWikiName")]
+    [Migration("20241130153541_AddUniqueIndexToPokemonWikiName")]
     partial class AddUniqueIndexToPokemonWikiName
     {
         /// <inheritdoc />

@@ -56,11 +56,11 @@ GET http://localhost:5244/api/seu_pokemon/buscar/d1767764-6d99-4432-8bca-1e3016d
 DELETE http://localhost:5244/api/seu_pokemon/deletar/405a3085-3f25-46fd-a41b-d474052f8ee3
 
 ### alterar informações do pokemon
-PUT http://localhost:5244/api/seu_pokemon/alterar/d1767764-6d99-4432-8bca-1e3016d5f637
+PUT http://localhost:5244/api/seu_pokemon/alterar/87159360-7225-4aa5-be51-48824469a0ae
 Content-Type: application/json
 
 {
-    "nome": "Eevee",
+    "nome": "primarina1",
     "pc": 500,
     "tipoId": 3
 }
@@ -92,7 +92,7 @@ POST http://localhost:5244/api/tipo/cadastrar
 Content-Type: application/json
 
 {
-    "nome" : "Normal"
+    "nome" : "Fantasma"
 }
 
 ### deletar um tipo

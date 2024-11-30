@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -12,64 +12,72 @@ namespace API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "PokemonsWiki",
+                name: "Tipos",
                 columns: table => new
                 {
-                    PokemonWikiId = table.Column<int>(type: "INTEGER", nullable: false)
+                    TipoId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(type: "TEXT", nullable: true),
-                    Tipos = table.Column<string>(type: "TEXT", nullable: false),
-                    Descricao = table.Column<string>(type: "TEXT", nullable: true),
-                    EvoluiPara = table.Column<string>(type: "TEXT", nullable: false),
-                    PreEvolucoes = table.Column<string>(type: "TEXT", nullable: false),
                     CriadoEm = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Tipos", x => x.TipoId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PokemonsWiki",
+                columns: table => new
+                {
+                    PokemonWikiId = table.Column<string>(type: "TEXT", nullable: false),
+                    Nome = table.Column<string>(type: "TEXT", nullable: true),
+                    Descricao = table.Column<string>(type: "TEXT", nullable: true),
+                    EvoluiPara = table.Column<string>(type: "TEXT", nullable: false),
+                    PreEvolucoes = table.Column<string>(type: "TEXT", nullable: false),
+                    CriadoEm = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    TipoId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_PokemonsWiki", x => x.PokemonWikiId);
+                    table.ForeignKey(
+                        name: "FK_PokemonsWiki_Tipos_TipoId",
+                        column: x => x.TipoId,
+                        principalTable: "Tipos",
+                        principalColumn: "TipoId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "SeusPokemons",
                 columns: table => new
                 {
-                    SeusPokemonsId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    SeusPokemonsId = table.Column<string>(type: "TEXT", nullable: false),
                     Nome = table.Column<string>(type: "TEXT", nullable: true),
-                    Tipos = table.Column<string>(type: "TEXT", nullable: false),
                     PC = table.Column<int>(type: "INTEGER", nullable: false),
-                    CriadoEm = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    CriadoEm = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    TipoId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SeusPokemons", x => x.SeusPokemonsId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Usuarios",
-                columns: table => new
-                {
-                    UsuarioId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", nullable: true),
-                    Password = table.Column<string>(type: "TEXT", nullable: true),
-                    CriadoEm = table.Column<DateTime>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Usuarios", x => x.UsuarioId);
+                    table.ForeignKey(
+                        name: "FK_SeusPokemons_Tipos_TipoId",
+                        column: x => x.TipoId,
+                        principalTable: "Tipos",
+                        principalColumn: "TipoId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Batalhas",
                 columns: table => new
                 {
-                    BatalhaId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    BatalhaId = table.Column<string>(type: "TEXT", nullable: false),
                     Titulo = table.Column<string>(type: "TEXT", nullable: true),
                     DataBatalha = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Pokemon1Id = table.Column<int>(type: "INTEGER", nullable: false),
-                    Pokemon2Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    Pokemon1Id = table.Column<string>(type: "TEXT", nullable: true),
+                    Pokemon2Id = table.Column<string>(type: "TEXT", nullable: true),
                     Vencedor = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -104,6 +112,16 @@ namespace API.Migrations
                 table: "PokemonsWiki",
                 column: "Nome",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PokemonsWiki_TipoId",
+                table: "PokemonsWiki",
+                column: "TipoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SeusPokemons_TipoId",
+                table: "SeusPokemons",
+                column: "TipoId");
         }
 
         /// <inheritdoc />
@@ -116,10 +134,10 @@ namespace API.Migrations
                 name: "PokemonsWiki");
 
             migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "SeusPokemons");
 
             migrationBuilder.DropTable(
-                name: "SeusPokemons");
+                name: "Tipos");
         }
     }
 }

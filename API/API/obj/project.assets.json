@@ -3198,19 +3198,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\laura\\.nuget\\packages\\": {}
+    "C:\\Users\\Bianca\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\laura\\Downloads\\projeto pokedex\\projeto pokedex\\API\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\Bianca\\Downloads\\projeto pokedex\\projeto pokedex\\API\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\laura\\Downloads\\projeto pokedex\\projeto pokedex\\API\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\laura\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\laura\\Downloads\\projeto pokedex\\projeto pokedex\\API\\API\\obj\\",
+      "projectPath": "C:\\Users\\Bianca\\Downloads\\projeto pokedex\\projeto pokedex\\API\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\Bianca\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Bianca\\Downloads\\projeto pokedex\\projeto pokedex\\API\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\laura\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Bianca\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -3269,7 +3269,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

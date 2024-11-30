@@ -56,7 +56,7 @@ function PokemonWikiListar() {
                 </button>
               </td>
               <td>
-                <Link to={`/pages/produto/alterar/${pokemon.nome}`}>
+                <Link to={`/pages/pokemonWiki/alterar/${pokemon.nome}`}>
                   Alterar
                 </Link>
               </td>

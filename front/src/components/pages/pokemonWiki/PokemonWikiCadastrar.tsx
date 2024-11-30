@@ -1,117 +1,117 @@
-import { useEffect, useState } from "react";
-import { PokemonWiki } from "../../../models/PokemonWiki";
-import { Tipo } from "../../../models/Tipo";
-import axios from "axios";
+import React, { useState } from "react";
 
-function CadastrarPokemonWiki() {
-    const [nome, setNome] = useState<string>('');
-    const [descricao, setDescricao] = useState<string>('');
-    const [tipos, setTipos] = useState<Tipo[]>([]);
-    const [tipoId, setTipoId] = useState(0);
-    const [preEvolucoes, setPreEvolucoes] = useState<string[]>([]);
-    const [evoluiPara, setEvoluiPara] = useState<string[]>([]);
+const PokemonWikiCadastrar = () => {
+  const [nome, setNome] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [tipoId, setTipoId] = useState(""); // Armazena o ID do Tipo
+  const [evoluiPara, setEvoluiPara] = useState("");
+  const [preEvolucoes, setPreEvolucoes] = useState("");
 
-    useEffect(() => {
-        axios
-        .get<Tipo[]>("http://localhost:5244/api/tipo/listar")
-        .then((resposta) => {
-            setTipos(resposta.data);
-        });
-    });
-
-    function enviarPokemonWiki(e: any) {
-    e.preventDefault();
-
-    const pokemonWiki: PokemonWiki = {
+  const cadastrarPokemonWiki = async () => {
+    // Montando o JSON no formato esperado
+    const pokemonData = {
       nome,
       descricao,
-      preEvolucoes,
-      evoluiPara,
-      tipoId,
+      tipoId: parseInt(tipoId, 10), // Certifique-se de que é um número
+      evoluiPara: evoluiPara.split(","), // Converte string separada por vírgulas em array
+      preEvolucoes: preEvolucoes.split(","), // Converte string separada por vírgulas em array
     };
-    
-    fetch("http://localhost:5244/api/pokemon_wiki/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(pokemonWiki),
-    })
-      .then((resposta) => {
-        return resposta.json();
-      })
-      .then((pokemonWiki) => {
-        console.log("Pokemon cadastrado", pokemonWiki);
+
+    try {
+      const response = await fetch("http://localhost:5244/api/pokemon_wiki/cadastrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pokemonData),
       });
-  }
+
+      if (response.ok) {
+        alert("Pokémon cadastrado com sucesso!");
+        // Limpa os campos do formulário após o cadastro
+        setNome("");
+        setDescricao("");
+        setTipoId("");
+        setEvoluiPara("");
+        setPreEvolucoes("");
+      } else {
+        const errorMessage = await response.text();
+        alert(`Erro ao cadastrar: ${errorMessage}`);
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+    }
+  };
 
   return (
-    <div id="cadastrar_pokemon" className="container">
-      <h1>Cadastrar Pokemon Wiki</h1>
-      <form onSubmit={enviarPokemonWiki}>
-        <div>
-          <label htmlFor="nome">Nome</label>
+    <div>
+      <h2>Cadastrar Pokémon Wiki</h2>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          cadastrarPokemonWiki();
+        }}
+      >
+        <label>
+          Nome:
+          <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} required />
+        </label>
+        <br />
+
+        <label>
+          Descrição:
           <input
             type="text"
-            id="nome"
-            name="nome"
+            value={descricao}
+            onChange={(e) => setDescricao(e.target.value)}
             required
-            onChange={(e: any) => setNome(e.target.value)}
           />
-        </div>
+        </label>
+        <br />
 
-        <div>
-          <label htmlFor="descricao">Descrição</label>
-          <input
-            type="text"
-            id="descricao"
-            name="descricao"
-            onChange={(e: any) => setDescricao(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="preEvolucoes">Pré Evoluções (separadas por vírgulas)</label>
-          <input
-            type="text"
-            id="preEvolucoes"
-            name="preEvolucoes"
-            onChange={(e: any) => setPreEvolucoes(e.target.value.split(","))}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="evoluiPara">Evolui para (separadas por vírgulas)</label>
-          <input
-            type="text"
-            id="evoluiPara"
-            name="evoluiPara"
-            onChange={(e: any) => setEvoluiPara(e.target.value.split(","))}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="tipo">Tipos</label>
-          <select
-            onChange={(e: any) => setTipoId(e.target.value)}
-          >
-            {tipos.map((tipo) => (
-              <option
-                value={tipo.TipoId}
-                key={tipo.TipoId}
-              >
-                {tipo.nome}
-              </option>
-            ))}
+        <label>
+          Tipo:
+          <select value={tipoId} onChange={(e) => setTipoId(e.target.value)} required>
+            <option value="">Selecione um tipo</option>
+            <option value="1">Normal</option>
+            <option value="2">Água</option>
+            <option value="3">Fogo</option>
+            <option value="4">Planta</option>
+            <option value="5">Elétrico</option>
+            <option value="6">Inseto</option>
+            <option value="7">Lutador</option>
+            <option value="8">Gelo</option>
+            <option value="9">Fada</option>
+            <option value="10">Dragão</option>
+            <option value="11">Venenoso</option>
+            <option value="12">Sombrio</option>
+            <option value="13">Fantasma</option>
           </select>
-        </div>
+        </label>
+        <br />
 
-        <button type="submit">Cadastrar Pokemon Wiki</button>
+        <label>
+          Evolui Para (separado por vírgulas):
+          <input
+            type="text"
+            value={evoluiPara}
+            onChange={(e) => setEvoluiPara(e.target.value)}
+          />
+        </label>
+        <br />
+
+        <label>
+          Pré-Evoluções (separado por vírgulas):
+          <input
+            type="text"
+            value={preEvolucoes}
+            onChange={(e) => setPreEvolucoes(e.target.value)}
+          />
+        </label>
+        <br />
+
+        <button type="submit">Cadastrar Pokémon Wiki</button>
       </form>
     </div>
   );
-}
+};
 
-export default CadastrarPokemonWiki;
-
-
+export default PokemonWikiCadastrar;

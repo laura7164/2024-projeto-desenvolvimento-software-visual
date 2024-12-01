@@ -1,78 +1,44 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import CadastrarPokemonWiki from './components/pages/pokemonWiki/PokemonWikiCadastrar';
-import ListarPokemonWiki from './components/pages/pokemonWiki/PokemonWikiListar';
-import BuscarPokemonWiki from './components/pages/pokemonWiki/PokemonWikiBuscar';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./components/pages/home/Home";
+import PokemonWikiMain from "./components/pages/pokemonWiki/PokemonWikiMain"
+import PokemonWikiCadastrar from './components/pages/pokemonWiki/PokemonWikiCadastrar';
+import PokemonWikiListar from './components/pages/pokemonWiki/PokemonWikiListar';
+import PokemonWikiBuscar from './components/pages/pokemonWiki/PokemonWikiBuscar';
 import PokemonWikiAlterar from './components/pages/pokemonWiki/PokemonWikiAlterar';
-import CadastrarSeuPokemon from './components/pages/seusPokemons/SeusPokemonsCadastrar';
-import ListarSeusPokemons from './components/pages/seusPokemons/SeusPokemonsListar';
-import BuscarSeuPokemon from './components/pages/seusPokemons/SeusPokemonsBuscar';
-import AlterarSeuPokemon from './components/pages/seusPokemons/SeusPokemonsAlterar';
-import CadastrarBatalha from './components/pages/batalha/BatalhaCadastrar';
-import ListarBatalhas from './components/pages/batalha/BatalhaListar';
-import BuscarBatalha from './components/pages/batalha/BatalhaBuscar';
-import DeletarBatalha from './components/pages/batalha/BatalhaDeletar';
+import SeusPokemonsMain from "./components/pages/seusPokemons/SeusPokemonsMain";
+import SeusPokemonsCadastrar from './components/pages/seusPokemons/SeusPokemonsCadastrar';
+import SeusPokemonsListar from './components/pages/seusPokemons/SeusPokemonsListar';
+import SeusPokemonsBuscar from './components/pages/seusPokemons/SeusPokemonsBuscar';
+import SeusPokemonsAlterar from './components/pages/seusPokemons/SeusPokemonsAlterar';
+import BatalhaMain from './components/pages/batalha/BatalhaMain';
+import BatalhaCadastrar from './components/pages/batalha/BatalhaCadastrar';
+import BatalhaListar from './components/pages/batalha/BatalhaListar';
+import BatalhaBuscar from './components/pages/batalha/BatalhaBuscar';
+import BatalhaDeletar from './components/pages/batalha/BatalhaDeletar';
 
 function App() {
   return (
-    <div id="app">
-      <BrowserRouter>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">home</Link>
-            </li>
-            <li>
-              <Link to="/pages/pokemonWiki/cadastrar">cadastrar pokemon</Link>
-            </li>
-            <li>
-              <Link to="/pages/pokemonWiki/listar">listar pokemon</Link>
-            </li>
-            <li>
-              <Link to="/pages/pokemonWiki/buscar">buscar pokemon</Link>
-            </li>
-            <li>
-              <Link to="/pages/seusPokemons/cadastrar">cadastrar seu pokemon</Link>
-            </li>
-            <li>
-              <Link to="/pages/seusPokemons/listar">listar seus pokemons</Link>
-            </li>
-            <li>
-              <Link to="/pages/seusPokemons/buscar">buscar seus pokemons</Link>
-            </li>
-            <li>
-              <Link to="/pages/batalha/cadastrar">cadastrar batalha</Link>
-            </li>
-            <li>
-              <Link to="/pages/batalha/listar">listar batalhas</Link>
-            </li>
-            <li>
-              <Link to="/pages/batalha/buscar">buscar batalha pelo id</Link>
-            </li>
-            <li>
-              <Link to="/pages/batalha/deletar">deletar batalha pelo id</Link>
-            </li>
-          </ul>
-        </nav>
-        <Routes>
-          <Route path="/" element={<CadastrarPokemonWiki />} />
-          <Route path="/pages/pokemonWiki/cadastrar" element={<CadastrarPokemonWiki />} />
-          <Route path="/pages/pokemonWiki/listar" element={<ListarPokemonWiki />} />
-          <Route path="/pages/pokemonWiki/buscar" element={<BuscarPokemonWiki />} />
-          <Route path="/pages/pokemonWiki/alterar/:nomeParam" element={<PokemonWikiAlterar />} />
-          <Route path="/pages/seusPokemons/cadastrar" element={<CadastrarSeuPokemon />} />
-          <Route path="/pages/seusPokemons/listar" element={<ListarSeusPokemons />} />
-          <Route path="/pages/seusPokemons/buscar" element={<BuscarSeuPokemon />} />
-          <Route path="/pages/seusPokemons/alterar/:idParam" element={<AlterarSeuPokemon />} />
-          <Route path="/pages/batalha/cadastrar" element={<CadastrarBatalha />} />
-          <Route path="/pages/batalha/listar" element={<ListarBatalhas />} />
-          <Route path="/pages/batalha/buscar" element={<BuscarBatalha />} />
-          <Route path="/pages/batalha/deletar" element={<DeletarBatalha />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/pages/pokemon_wiki/main" element={<PokemonWikiMain />} />
+        <Route path="/pages/pokemon_wiki/cadastrar" element={<PokemonWikiCadastrar />} />
+        <Route path="/pages/pokemon_wiki/listar" element={<PokemonWikiListar />} />
+        <Route path="/pages/pokemon_wiki/buscar" element={<PokemonWikiBuscar />} />
+        <Route path="/pages/pokemon_wiki/alterar/:nomeParam" element={<PokemonWikiAlterar />} />
+        <Route path="/pages/seu_pokemon/main" element={<SeusPokemonsMain />} />
+        <Route path="/pages/seu_pokemon/cadastrar" element={<SeusPokemonsCadastrar />} />
+        <Route path="/pages/seu_pokemon/listar" element={<SeusPokemonsListar />} />
+        <Route path="/pages/seu_pokemon/buscar" element={<SeusPokemonsBuscar />} />
+        <Route path="/pages/seu_pokemon/alterar/:idParam" element={<SeusPokemonsAlterar />} />
+        <Route path="/pages/batalha/main" element={<BatalhaMain />} />
+        <Route path="/pages/batalha/cadastrar" element={<BatalhaCadastrar />} />
+        <Route path="/pages/batalha/listar" element={<BatalhaListar />} />
+        <Route path="/pages/batalha/buscar" element={<BatalhaBuscar />} />
+        <Route path="/pages/batalha/deletar" element={<BatalhaDeletar />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

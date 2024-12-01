@@ -2,14 +2,11 @@
 
 #nullable disable
 
-namespace API.Migrations
-{
+namespace API.Migrations {
     /// <inheritdoc />
-    public partial class AddUniqueIndexToPokemonWikiName : Migration
-    {
+    public partial class AddUniqueIndexToPokemonWikiName : Migration {
         /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
+        protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.CreateIndex(
                 name: "IX_PokemonsWiki_Nome",
                 table: "PokemonsWiki",
@@ -18,8 +15,7 @@ namespace API.Migrations
         }
 
         /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
+        protected override void Down(MigrationBuilder migrationBuilder) {
             migrationBuilder.DropIndex(
                 name: "IX_PokemonsWiki_Nome",
                 table: "PokemonsWiki");

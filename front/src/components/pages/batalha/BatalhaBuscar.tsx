@@ -1,4 +1,6 @@
 import { useState } from "react";
+import "../../../styles/styles.css";
+import { Link } from "react-router-dom";
 
 function BuscarBatalha() {   
     const [id, setId] = useState<string>('');
@@ -39,22 +41,41 @@ function BuscarBatalha() {
     }
 
     return (
-        <div>
-            <h1>Buscar Batalha</h1>
+        <div id="app">
+            <div id="background">
+                <video loop autoPlay muted>
+                <source src="/assets/video-fundo.mp4" type="video/mp4" />
+                </video>
+            </div>
 
-            <input 
-                type="text" 
-                placeholder="Digite o ID da Batalha"
-                onChange={digitar}
-                onBlur={sairCaixaTexto}
-            />
+            <header>
+                <img src="/assets/logo-pokemon.png" alt="Logo Pokémon" />
+                <ul className="navigation">
+                <li><Link to="/" className="navigation__link">Voltar pro Home</Link></li>
+                <li><Link to="/pages/batalha/cadastrar" className="navigation__link">Cadastrar</Link></li>
+                <li><Link to="/pages/batalha/listar" className="navigation__link">Listar</Link></li>
+                <li><Link to="/pages/batalha/buscar" className="navigation__link">Buscar</Link></li>
+                <li><Link to="/pages/batalha/deletar" className="navigation__link">Deletar</Link></li>
+                </ul>
+            </header>
 
-            <button onClick={sairCaixaTexto}>Buscar</button>
+            <div className="buscar">
+                <h2>Buscar uma batalha</h2>
 
-            <p><strong>Título da Batalha:</strong> {titulo}</p>
-            <p><strong>Pokémon 1:</strong> {pokemon1}</p>
-            <p><strong>Pokémon 2:</strong> {pokemon2}</p>
-            <p><strong>Vencedor:</strong> {vencedor}</p>
+                <input 
+                    type="text" 
+                    placeholder="Digite o ID da Batalha"
+                    onChange={digitar}
+                    onBlur={sairCaixaTexto}
+                />
+
+                <button onClick={sairCaixaTexto}>Buscar</button>
+
+                <p><strong>Título da Batalha:</strong> {titulo}</p>
+                <p><strong>Pokémon 1:</strong> {pokemon1}</p>
+                <p><strong>Pokémon 2:</strong> {pokemon2}</p>
+                <p><strong>Vencedor:</strong> {vencedor}</p>
+            </div>
         </div>
     );
 }

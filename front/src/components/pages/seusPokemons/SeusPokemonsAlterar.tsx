@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import "../../../styles/styles.css";
+import { Link } from "react-router-dom";
 
 const SeusPokemonsAlterar = () => {
-    const { idParam } = useParams(); // Captura o ID da URL
+    const { idParam } = useParams(); 
     const [nome, setNome] = useState("");
     const [pc, setPc] = useState<number>(0);
     const [tipoId, setTipoId] = useState("");
@@ -65,63 +67,81 @@ const SeusPokemonsAlterar = () => {
     };
 
     return (
-        <div>
-            <h2>Alterar Seu Pokémon</h2>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    alterarSeuPokemon();
-                }}
-            >
-                <label>
-                    Nome:
-                    <input
-                        type="text"
-                        value={nome}
-                        onChange={(e) => setNome(e.target.value)}
-                        required
-                    />
-                </label>
-                <br />
+        <div id="app">
+            <div id="background">
+                <video loop autoPlay muted>
+                <source src="/assets/video-fundo.mp4" type="video/mp4" />
+                </video>
+            </div>
 
-                <label>
-                    PC (Pontos de Combate):
-                    <input
-                        type="number"
-                        value={pc}
-                        onChange={(e) => setPc(Number(e.target.value))}
-                        required
-                    />
-                </label>
-                <br />
+            <header>
+                <img src="/assets/logo-pokemon.png" alt="Logo Pokémon" />
+                <ul className="navigation">
+                <li><Link to="/" className="navigation__link">Voltar pro Home</Link></li>
+                <li><Link to="/pages/seu_pokemon/cadastrar" className="navigation__link">Cadastrar</Link></li>
+                <li><Link to="/pages/seu_pokemon/listar" className="navigation__link">Listar</Link></li>
+                <li><Link to="/pages/seu_pokemon/buscar" className="navigation__link">Buscar</Link></li>
+                </ul>
+            </header>
 
-                <label>
-                    Tipo:
-                    <select
-                        value={tipoId}
-                        onChange={(e) => setTipoId(e.target.value)}
-                        required
-                    >
-                        <option value="">Selecione um tipo</option>
-                        <option value="1">Normal</option>
-                        <option value="2">Água</option>
-                        <option value="3">Fogo</option>
-                        <option value="4">Planta</option>
-                        <option value="5">Elétrico</option>
-                        <option value="6">Inseto</option>
-                        <option value="7">Lutador</option>
-                        <option value="8">Gelo</option>
-                        <option value="9">Fada</option>
-                        <option value="10">Dragão</option>
-                        <option value="11">Venenoso</option>
-                        <option value="12">Sombrio</option>
-                        <option value="13">Fantasma</option>
-                    </select>
-                </label>
-                <br />
+            <div className="cadastrar">
+                <h2>Alterar seu pokémon</h2>
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        alterarSeuPokemon();
+                    }}
+                >
+                    <label>
+                        Nome:
+                        <input
+                            type="text"
+                            value={nome}
+                            onChange={(e) => setNome(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <br />
 
-                <button type="submit">Alterar Pokémon</button>
-            </form>
+                    <label>
+                        PC (Pontos de Combate):
+                        <input
+                            type="number"
+                            value={pc}
+                            onChange={(e) => setPc(Number(e.target.value))}
+                            required
+                        />
+                    </label>
+                    <br />
+
+                    <label>
+                        Tipo:
+                        <select
+                            value={tipoId}
+                            onChange={(e) => setTipoId(e.target.value)}
+                            required
+                        >
+                            <option value="">Selecione um tipo</option>
+                            <option value="1">Normal</option>
+                            <option value="2">Água</option>
+                            <option value="3">Fogo</option>
+                            <option value="4">Planta</option>
+                            <option value="5">Elétrico</option>
+                            <option value="6">Inseto</option>
+                            <option value="7">Lutador</option>
+                            <option value="8">Gelo</option>
+                            <option value="9">Fada</option>
+                            <option value="10">Dragão</option>
+                            <option value="11">Venenoso</option>
+                            <option value="12">Sombrio</option>
+                            <option value="13">Fantasma</option>
+                        </select>
+                    </label>
+                    <br />
+
+                    <button type="submit">Alterar Pokémon</button>
+                </form>
+            </div>
         </div>
     );
 };

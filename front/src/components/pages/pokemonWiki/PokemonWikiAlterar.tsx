@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import "../../../styles/styles.css";
 
 const PokemonWikiAlterar = () => {
   const { nomeParam } = useParams();
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [tipoId, setTipoId] = useState(""); // Armazena o ID do Tipo
+  const [tipoId, setTipoId] = useState(""); 
   const [evoluiPara, setEvoluiPara] = useState("");
   const [preEvolucoes, setPreEvolucoes] = useState("");
 
   useEffect(() => {
     if (nomeParam) {
-      // Busca os dados do Pokémon para preencher o formulário
+      
       axios
         .get(`http://localhost:5244/api/pokemon_wiki/buscar/${nomeParam}`)
         .then((resposta) => {
           setNome(resposta.data.nome);
           setDescricao(resposta.data.descricao);
-          setTipoId(resposta.data.tipoId.toString()); // Converte para string para uso no select
-          setEvoluiPara(resposta.data.evoluiPara.join(", ")); // Array para string
-          setPreEvolucoes(resposta.data.preEvolucoes.join(", ")); // Array para string
+          setTipoId(resposta.data.tipoId.toString()); 
+          setEvoluiPara(resposta.data.evoluiPara.join(", ")); 
+          setPreEvolucoes(resposta.data.preEvolucoes.join(", ")); 
         })
         .catch((error) => {
           console.error("Erro ao buscar Pokémon:", error);
@@ -30,13 +32,13 @@ const PokemonWikiAlterar = () => {
   }, [nomeParam]);
 
   const alterarPokemonWiki = async () => {
-    // Montando o JSON no formato esperado
+    
     const pokemonData = {
       nome,
       descricao,
-      tipoId: parseInt(tipoId, 10), // Certifique-se de que é um número
-      evoluiPara: evoluiPara.split(",").map((s) => s.trim()), // Converte string separada por vírgulas em array
-      preEvolucoes: preEvolucoes.split(",").map((s) => s.trim()), // Converte string separada por vírgulas em array
+      tipoId: parseInt(tipoId, 10), 
+      evoluiPara: evoluiPara.split(",").map((s) => s.trim()),  
+      preEvolucoes: preEvolucoes.split(",").map((s) => s.trim()), 
     };
 
     try {
@@ -57,83 +59,101 @@ const PokemonWikiAlterar = () => {
   };
 
   return (
-    <div>
-      <h2>Alterar Pokémon Wiki</h2>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          alterarPokemonWiki();
-        }}
-      >
-        <label>
-          Nome:
-          <input
-            type="text"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-            required
-          />
-        </label>
-        <br />
+    <div id="app">
+      <div id="background">
+        <video loop autoPlay muted>
+          <source src="/assets/video-fundo.mp4" type="video/mp4" />
+        </video>
+      </div>
 
-        <label>
-          Descrição:
-          <input
-            type="text"
-            value={descricao}
-            onChange={(e) => setDescricao(e.target.value)}
-            required
-          />
-        </label>
-        <br />
+      <header>
+        <img src="/assets/logo-pokemon.png" alt="Logo Pokémon" />
+        <ul className="navigation">
+          <li><Link to="/" className="navigation__link">Voltar pro Home</Link></li>
+          <li><Link to="/pages/pokemon_wiki/cadastrar" className="navigation__link">Cadastrar</Link></li>
+          <li><Link to="/pages/pokemon_wiki/listar" className="navigation__link">Listar</Link></li>
+          <li><Link to="/pages/pokemon_wiki/buscar" className="navigation__link">Buscar</Link></li>
+        </ul>
+      </header>
 
-        <label>
-          Tipo:
-          <select
-            value={tipoId}
-            onChange={(e) => setTipoId(e.target.value)}
-            required
-          >
-            <option value="">Selecione um tipo</option>
-            <option value="1">Normal</option>
-            <option value="2">Água</option>
-            <option value="3">Fogo</option>
-            <option value="4">Planta</option>
-            <option value="5">Elétrico</option>
-            <option value="6">Inseto</option>
-            <option value="7">Lutador</option>
-            <option value="8">Gelo</option>
-            <option value="9">Fada</option>
-            <option value="10">Dragão</option>
-            <option value="11">Venenoso</option>
-            <option value="12">Sombrio</option>
-            <option value="13">Fantasma</option>
-          </select>
-        </label>
-        <br />
+      <div className="cadastrar">
+        <h2>Alterar um pokémon na pokedex</h2>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            alterarPokemonWiki();
+          }}
+        >
+          <label>
+            Nome:
+            <input
+              type="text"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              required
+            />
+          </label>
+          <br />
 
-        <label>
-          Evolui Para (separado por vírgulas):
-          <input
-            type="text"
-            value={evoluiPara}
-            onChange={(e) => setEvoluiPara(e.target.value)}
-          />
-        </label>
-        <br />
+          <label>
+            Descrição:
+            <input
+              type="text"
+              value={descricao}
+              onChange={(e) => setDescricao(e.target.value)}
+              required
+            />
+          </label>
+          <br />
 
-        <label>
-          Pré-Evoluções (separado por vírgulas):
-          <input
-            type="text"
-            value={preEvolucoes}
-            onChange={(e) => setPreEvolucoes(e.target.value)}
-          />
-        </label>
-        <br />
+          <label>
+            Tipo:
+            <select
+              value={tipoId}
+              onChange={(e) => setTipoId(e.target.value)}
+              required
+            >
+              <option value="">Selecione um tipo</option>
+              <option value="1">Normal</option>
+              <option value="2">Água</option>
+              <option value="3">Fogo</option>
+              <option value="4">Planta</option>
+              <option value="5">Elétrico</option>
+              <option value="6">Inseto</option>
+              <option value="7">Lutador</option>
+              <option value="8">Gelo</option>
+              <option value="9">Fada</option>
+              <option value="10">Dragão</option>
+              <option value="11">Venenoso</option>
+              <option value="12">Sombrio</option>
+              <option value="13">Fantasma</option>
+            </select>
+          </label>
+          <br />
 
-        <button type="submit">Alterar Pokémon Wiki</button>
-      </form>
+          <label>
+            Evolui Para (separado por vírgulas):
+            <input
+              type="text"
+              value={evoluiPara}
+              onChange={(e) => setEvoluiPara(e.target.value)}
+            />
+          </label>
+          <br />
+
+          <label>
+            Pré-Evoluções (separado por vírgulas):
+            <input
+              type="text"
+              value={preEvolucoes}
+              onChange={(e) => setPreEvolucoes(e.target.value)}
+            />
+          </label>
+          <br />
+
+          <button type="submit">Alterar Pokémon Wiki</button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import "../../../styles/styles.css";
+import { Link } from "react-router-dom";
 
 function DeletarBatalha() {
     const [id, setId] = useState<string>('');
@@ -27,23 +29,42 @@ function DeletarBatalha() {
             setId(''); 
         })
         .catch(error => {
-            setMensagem(`Erro: ${error.message}`);
+            setMensagem('Erro: ${error.message}');
         });
     }
 
     return (
-        <div>
-            <h1>Deletar Batalha</h1>
+        <div id="app">
+            <div id="background">
+                <video loop autoPlay muted>
+                <source src="/assets/video-fundo.mp4" type="video/mp4" />
+                </video>
+            </div>
 
-            <label>ID da Batalha a ser deletada:</label>
-            <input 
-                type="text" 
-                value={id}
-                onChange={digitarId}
-            />
-            <button onClick={deletarBatalha}>Deletar</button>
+            <header>
+                <img src="/assets/logo-pokemon.png" alt="Logo Pokémon" />
+                <ul className="navigation">
+                <li><Link to="/" className="navigation__link">Voltar pro Home</Link></li>
+                <li><Link to="/pages/batalha/cadastrar" className="navigation__link">Cadastrar</Link></li>
+                <li><Link to="/pages/batalha/listar" className="navigation__link">Listar</Link></li>
+                <li><Link to="/pages/batalha/buscar" className="navigation__link">Buscar</Link></li>
+                <li><Link to="/pages/batalha/deletar" className="navigation__link">Deletar</Link></li>
+                </ul>
+            </header>
 
-            <p>{mensagem}</p>
+            <div className="deletar">
+                <h1>Deletar uma batalha</h1>
+
+                <label>ID da Batalha a ser deletada:</label>
+                <input 
+                    type="text" 
+                    value={id}
+                    onChange={digitarId}
+                />
+                <button onClick={deletarBatalha}>Deletar</button>
+
+                <p>{mensagem}</p>
+            </div>
         </div>
     );
 }

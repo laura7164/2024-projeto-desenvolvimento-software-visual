@@ -7,32 +7,32 @@ POST http://localhost:5244/api/pokemon_wiki/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "teste",
-    "descricao": "teste",
-    "evoluiPara": ["teste", "teste"],
-    "preEvolucoes": ["teste", "teste"],
-    "tipoId": 1
+    "nome": "teste2",
+    "descricao": "teste2",
+    "evoluiPara": ["teste2", "teste2"],
+    "preEvolucoes": ["teste2", "teste2"],
+    "tipoId": 2
 }
 
 ### listar todos os pokemons
 GET http://localhost:5244/api/pokemon_wiki/listar
 
 ### buscar um pokemon pelo nome
-GET http://localhost:5244/api/pokemon_wiki/buscar/teste
+GET http://localhost:5244/api/pokemon_wiki/buscar/teste3
 
 ### deletar um pokemon pelo nome
-DELETE http://localhost:5244/api/pokemon_wiki/deletar/teste
+DELETE http://localhost:5244/api/pokemon_wiki/deletar/teste3
 
 ### alterar informações do pokemon
-PUT http://localhost:5244/api/pokemon_wiki/alterar/teste
+PUT http://localhost:5244/api/pokemon_wiki/alterar/teste2
 Content-Type: application/json
 
 {
-    "nome": "teste2",
-    "descricao": "teste2",
-    "evoluiPara": ["teste2", "teste2"],
-    "preEvolucoes": ["teste2", "teste2"],
-    "tipoId": 2
+    "nome": "teste3",
+    "descricao": "teste3",
+    "evoluiPara": ["teste3", "teste3"],
+    "preEvolucoes": ["teste3", "teste3"],
+    "tipoId": 3
 }
 
 // CRUD da classe SeusPokemons
@@ -41,47 +41,47 @@ POST http://localhost:5244/api/seu_pokemon/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "Flareon",
-    "pc": 2000,
-    "tipoId": 1
+    "nome": "Piplup",
+    "pc": 1500,
+    "tipoId": 3
 }
 
 ### listar todos os pokemons
 GET http://localhost:5244/api/seu_pokemon/listar
 
 ### buscar um pokemon pelo id
-GET http://localhost:5244/api/seu_pokemon/buscar/d1767764-6d99-4432-8bca-1e3016d5f637
+GET http://localhost:5244/api/seu_pokemon/buscar/79d8d191-c145-4262-b6d3-f6ae00eb1c71
 
 ### deletar um pokemon pelo id
-DELETE http://localhost:5244/api/seu_pokemon/deletar/405a3085-3f25-46fd-a41b-d474052f8ee3
+DELETE http://localhost:5244/api/seu_pokemon/deletar/79d8d191-c145-4262-b6d3-f6ae00eb1c71
 
 ### alterar informações do pokemon
-PUT http://localhost:5244/api/seu_pokemon/alterar/87159360-7225-4aa5-be51-48824469a0ae
+PUT http://localhost:5244/api/seu_pokemon/alterar/9704207f-2625-40de-aa39-48176bbdba39
 Content-Type: application/json
 
 {
-    "nome": "primarina1",
+    "nome": "Piplup",
     "pc": 500,
-    "tipoId": 3
+    "tipoId": 4
 }
 
 // CRUD da classe Batalha
 ### cadastrar uma batalha
-POST http://localhost:5244/api/batalha/cadastrar/5eb740db-fda2-4899-84ea-8045c226c920/acd6b44a-7a81-44ed-b868-76288d2d62b4
+POST http://localhost:5244/api/batalha/cadastrar/9704207f-2625-40de-aa39-48176bbdba39/ff4e3ca0-645e-4ae9-b10f-959ff4ca0a6d
 Content-Type: application/json
 
 {
-    "titulo": "charizard vs flareon"
+    "titulo": "eevee vs piplup"
 }
 
 ### listar todas as batalhas
 GET http://localhost:5244/api/batalha/listar
 
 ### buscar uma batalha pelo id
-GET http://localhost:5244/api/batalha/buscar/0c802a02-1fad-449a-a880-d38cb5d4d33a
+GET http://localhost:5244/api/batalha/buscar/1dc9f896-ba99-4385-a562-08a9974b139e
 
 ### deletar uma batalha pelo id
-DELETE http://localhost:5244/api/batalha/deletar/0c802a02-1fad-449a-a880-d38cb5d4d33a
+DELETE http://localhost:5244/api/batalha/deletar/feafa503-a8ef-4503-b888-b5a0660e39e4
 
 // classe tipo (categoria)
 ### listar tipos

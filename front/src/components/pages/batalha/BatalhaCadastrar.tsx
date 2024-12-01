@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+import "../../../styles/styles.css";
+import { Link } from "react-router-dom";
 
-function CadastrarBatalha() {
-    const [pokemonId1, setPokemonId1] = useState<number | ''>('');
-    const [pokemonId2, setPokemonId2] = useState<number | ''>('');
+function BatalhaCadastrar() {
+    const [pokemonId1, setPokemonId1] = useState<string>(''); 
+    const [pokemonId2, setPokemonId2] = useState<string>(''); 
     const [titulo, setTitulo] = useState<string>('');
     const [mensagem, setMensagem] = useState<string | null>(null);
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
-        if (pokemonId1 === '' || pokemonId2 === '' || titulo.trim() === '') {
+        if (pokemonId1.trim() === '' || pokemonId2.trim() === '' || titulo.trim() === '') {
             setMensagem('Por favor, preencha todos os campos obrigatórios.');
             return;
         }
@@ -21,9 +23,9 @@ function CadastrarBatalha() {
         fetch(`http://localhost:5244/api/batalha/cadastrar/${pokemonId1}/${pokemonId2}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(batalha)
+            body: JSON.stringify(batalha),
         })
             .then(response => {
                 if (!response.ok) {
@@ -32,7 +34,6 @@ function CadastrarBatalha() {
                 return response.json();
             })
             .then(data => {
-                // Lógica para determinar o resultado
                 const { pokemon1, pokemon2 } = data;
 
                 let resultado: string;
@@ -44,8 +45,8 @@ function CadastrarBatalha() {
                 }
 
                 setMensagem(resultado);
-                setPokemonId1('');
-                setPokemonId2('');
+                setPokemonId1(''); 
+                setPokemonId2(''); 
                 setTitulo('');
             })
             .catch(error => {
@@ -55,44 +56,63 @@ function CadastrarBatalha() {
     }
 
     return (
-        <div>
-            <h2>Cadastrar Batalha</h2>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Título da Batalha:
-                    <input
-                        type="text"
-                        value={titulo}
-                        onChange={e => setTitulo(e.target.value)}
-                        required
-                    />
-                </label>
-                <br />
-                <label>
-                    ID do Pokémon 1:
-                    <input
-                        type="number"
-                        value={pokemonId1}
-                        onChange={e => setPokemonId1(Number(e.target.value))}
-                        required
-                    />
-                </label>
-                <br />
-                <label>
-                    ID do Pokémon 2:
-                    <input
-                        type="number"
-                        value={pokemonId2}
-                        onChange={e => setPokemonId2(Number(e.target.value))}
-                        required
-                    />
-                </label>
-                <br />
-                <button type="submit">Cadastrar Batalha</button>
-            </form>
-            {mensagem && <p>{mensagem}</p>}
+        <div id="app">
+            <div id="background">
+                <video loop autoPlay muted>
+                <source src="/assets/video-fundo.mp4" type="video/mp4" />
+                </video>
+            </div>
+
+            <header>
+                <img src="/assets/logo-pokemon.png" alt="Logo Pokémon" />
+                <ul className="navigation">
+                <li><Link to="/" className="navigation__link">Voltar pro Home</Link></li>
+                <li><Link to="/pages/batalha/cadastrar" className="navigation__link">Cadastrar</Link></li>
+                <li><Link to="/pages/batalha/listar" className="navigation__link">Listar</Link></li>
+                <li><Link to="/pages/batalha/buscar" className="navigation__link">Buscar</Link></li>
+                <li><Link to="/pages/batalha/deletar" className="navigation__link">Deletar</Link></li>
+                </ul>
+            </header>
+
+            <div className="cadastrar">
+                <h2>Cadastrar uma batalha</h2>
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Título da Batalha:
+                        <input
+                            type="text"
+                            value={titulo}
+                            onChange={e => setTitulo(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <br />
+                    <label>
+                        ID do Pokémon 1:
+                        <input
+                            type="text" 
+                            value={pokemonId1}
+                            onChange={e => setPokemonId1(e.target.value)} 
+                            required
+                        />
+                    </label>
+                    <br />
+                    <label>
+                        ID do Pokémon 2:
+                        <input
+                            type="text" 
+                            value={pokemonId2}
+                            onChange={e => setPokemonId2(e.target.value)} 
+                            required
+                        />
+                    </label>
+                    <br />
+                    <button type="submit">Cadastrar batalha</button>
+                </form>
+                {mensagem && <p>{mensagem}</p>}
+            </div>
         </div>
     );
 }
 
-export default CadastrarBatalha;
+export default BatalhaCadastrar;

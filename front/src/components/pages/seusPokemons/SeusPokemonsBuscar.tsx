@@ -1,10 +1,12 @@
 import { useState } from "react";
+import "../../../styles/styles.css";
+import { Link } from "react-router-dom";
 
-function BuscarSeuPokemon() {
+function SeusPokemonsBuscar() {
     const [id, setId] = useState<string>('');
     const [nome, setNome] = useState<string>('');
     const [pc, setPc] = useState<number | null>(null);
-    const [tipo, setTipo] = useState<string>(''); // Para armazenar o nome do tipo
+    const [tipo, setTipo] = useState<string>(''); 
 
     function digitar(e: React.ChangeEvent<HTMLInputElement>) {
         setId(e.target.value);
@@ -26,7 +28,7 @@ function BuscarSeuPokemon() {
                 if (pokemon && pokemon.nome) {
                     setNome(pokemon.nome || '');
                     setPc(pokemon.pc || null);
-                    setTipo(pokemon.tipo?.nome || ''); // Obtém o nome do tipo do objeto Tipo
+                    setTipo(pokemon.tipo?.nome || ''); 
                 } else {
                     alert("Pokémon não encontrado!");
                     limparCampos();
@@ -46,23 +48,41 @@ function BuscarSeuPokemon() {
     }
 
     return (
-        <div>
-            <h1>Buscar seu Pokémon</h1>
+        <div id="app">
+            <div id="background">
+                <video loop autoPlay muted>
+                <source src="/assets/video-fundo.mp4" type="video/mp4" />
+                </video>
+            </div>
 
-            <input
-                type="text"
-                placeholder="Digite o ID do Pokémon"
-                onChange={digitar}
-                onBlur={sairCaixaTexto}
-            />
+            <header>
+                <img src="/assets/logo-pokemon.png" alt="Logo Pokémon" />
+                <ul className="navigation">
+                <li><Link to="/" className="navigation__link">Voltar pro Home</Link></li>
+                <li><Link to="/pages/seu_pokemon/cadastrar" className="navigation__link">Cadastrar</Link></li>
+                <li><Link to="/pages/seu_pokemon/listar" className="navigation__link">Listar</Link></li>
+                <li><Link to="/pages/seu_pokemon/buscar" className="navigation__link">Buscar</Link></li>
+                </ul>
+            </header>
 
-            <button onClick={sairCaixaTexto}>Buscar</button>
+            <div className="buscar">
+                <h2>Buscar seu pokémon</h2>
 
-            <p><strong>Nome:</strong> {nome}</p>
-            <p><strong>PC:</strong> {pc}</p>
-            <p><strong>Tipo:</strong> {tipo}</p> {/* Exibe o nome do tipo */}
+                <input 
+                    type="text"
+                    placeholder="Digite o ID do Pokémon"
+                    onChange={digitar}
+                    onBlur={sairCaixaTexto}
+                />
+
+                <button onClick={sairCaixaTexto}>Buscar</button>
+                
+                <p><strong>Nome:</strong> {nome}</p>
+                <p><strong>PC:</strong> {pc}</p>
+                <p><strong>Tipo:</strong> {tipo}</p>
+            </div>
         </div>
     );
 }
 
-export default BuscarSeuPokemon;
+export default SeusPokemonsBuscar;
